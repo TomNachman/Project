@@ -26,6 +26,5 @@ public class RunMazeGenerator {
         // prints the maze exit position
         System.out.println(String.format("Goal Position: %s",
                 maze.getGoalPosition()));
-
     }
 }
