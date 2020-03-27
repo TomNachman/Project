@@ -24,6 +24,8 @@ public class Maze {
         return goalPosition;
     }
 
+    public void setStartPosition(Position s){ startPosition=s; }
+
     public int getRows() {
         return rows;
     }
@@ -42,6 +44,34 @@ public class Maze {
 
     public void setValue(Position position, int val){
         myMaze[position.getRowIndex()][position.getColumnIndex()] = val;
+    }
+    /**
+     * Return if the cell is in boundaries and if it is not a Wall.
+     * @param i - Row number
+     * @param j - Column number
+     * @return True if the cell is valid. False if not.
+     */
+    public boolean isValidCell (int i , int j){
+        if(i<rows && i>=0 && j<cols && j>=0)
+            if(myMaze[i][j] == 0)
+                return true;
+        return false;
+    }
+
+    /**
+     * Set the value of the given position to zero
+     * @param pos
+     */
+    public void MakePath(Position pos){
+        if(pos.getRowIndex() < rows && pos.getRowIndex() >=0 && pos.getColumnIndex()<cols && pos.getColumnIndex()>=0){
+            myMaze[pos.getRowIndex()][pos.getColumnIndex()] =0 ;
+        }
+    }
+    public boolean isWall(int row,int col){
+        if(row < rows && row >=0 && col<cols && col>=0){
+            if (myMaze[col][row]==1)return true ;
+        }
+        return false;
     }
 
     public void print(){
