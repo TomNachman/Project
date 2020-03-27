@@ -36,6 +36,14 @@ public class Maze {
         return myMaze;
     }
 
+    public void setValue(int row, int col, int val){
+        myMaze[row][col] = val;
+    }
+
+    public void setValue(Position position, int val){
+        myMaze[position.getRowIndex()][position.getColumnIndex()] = val;
+    }
+
     public void print(){
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.cols; j++) {
