@@ -7,9 +7,6 @@ public class RunMazeGenerator {
         testMazeGenerator(new EmptyMazeGenerator());
         testMazeGenerator(new SimpleMazeGenerator());
 
-        //"ssf
-
-        //dsdfdf
         //testMazeGenerator(new MyMazeGenerator());
     }
 
