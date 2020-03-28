@@ -38,7 +38,7 @@ public class MyMazeGenerator extends AMazeGenerator {
         }
         return new Position(myRow, myCol);
     }
-    
+
     /**
      * This algorithm is a randomized version of Prim's algorithm:
      *   1. Start with a grid full of walls. (done)

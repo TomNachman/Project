@@ -91,8 +91,7 @@ public class Maze {
         if(goalPosition==null){return true;}
         double distP1 = Math.sqrt(Math.pow(p1.getRowIndex()-startPosition.getRowIndex(),2) + Math.pow(p1.getColumnIndex()-startPosition.getColumnIndex(),2));
         double distP2 = Math.sqrt(Math.pow(goalPosition.getRowIndex()-startPosition.getRowIndex(),2) + Math.pow(goalPosition.getColumnIndex()-startPosition.getColumnIndex(),2));
-        if(distP1>distP2) return true;
-        return false;
+        return (distP1>distP2);
     }
 
     /**
@@ -101,18 +100,9 @@ public class Maze {
      * @return true - if the pos on the edges
      */
     public boolean onEdges(Position pos){
-        if( pos.getRowIndex()==0    || pos.getRowIndex()==getRows()-1 ||
-            pos.getColumnIndex()==0 || pos.getColumnIndex()==getCols()-1){
-            return true;
-        }
-        return false;
+        return ( pos.getRowIndex()==0    || pos.getRowIndex()==getRows()-1 ||
+                pos.getColumnIndex()==0 || pos.getColumnIndex()==getCols()-1);
     }
-
-    /**
-    public int[][] getMyMaze() {
-        return myMaze;
-    }
-    * /
 
     /**
      * Return if the cell is in boundaries of the Maze
@@ -121,9 +111,7 @@ public class Maze {
      * @return True if the cell is valid.
      */
     private boolean isValidCell (int row , int col){
-        if(row<this.rows && row>=0 && col<this.cols && col>=0)
-            return true;
-        return false;
+        return (row<this.rows && row>=0 && col<this.cols && col>=0);
     }
 
     /**
@@ -133,10 +121,7 @@ public class Maze {
      * @return true - if the cell is part of the Path
      */
     public boolean isPartOfThePath (int row , int col){
-        if(isValidCell(row,col))
-            if(myMaze[row][col] == 0)
-                return true;
-        return false;
+        return (isValidCell(row,col) && myMaze[row][col] == 0);
     }
 
     /**
@@ -146,11 +131,7 @@ public class Maze {
      * @return true if the cell is a wall
      */
     public boolean isWall(int row,int col){
-        if(isValidCell(row,col)){
-            if (myMaze[row][col]==1)
-                return true ;
-        }
-        return false;
+        return (isValidCell(row,col) && myMaze[row][col]==1);
     }
 
     /**
@@ -160,16 +141,6 @@ public class Maze {
     public void MakePath(Position pos){
         if(isValidCell(pos.getRowIndex(), pos.getColumnIndex())){
             myMaze[pos.getRowIndex()][pos.getColumnIndex()] =0 ;
-        }
-    }
-
-    /**
-     * Set the value of the given position to a wall (1)
-     * @param pos - the position to change
-     */
-    public void MakeWall(Position pos){
-        if(isValidCell(pos.getRowIndex(), pos.getColumnIndex())){
-            myMaze[pos.getRowIndex()][pos.getColumnIndex()] =1 ;
         }
     }
 

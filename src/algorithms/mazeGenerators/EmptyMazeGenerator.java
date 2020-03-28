@@ -16,6 +16,6 @@ public class EmptyMazeGenerator extends AMazeGenerator {
         Maze myEmptyMaze =  new Maze(rows, cols);
         myEmptyMaze.setStartPosition(new Position(0,0));
         myEmptyMaze.setGoalPosition(new Position(rows-1,cols-1));
-        return  myEmptyMaze;
+        return myEmptyMaze;
     }
 }

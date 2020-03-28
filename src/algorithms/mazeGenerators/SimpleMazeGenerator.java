@@ -18,6 +18,8 @@ public class SimpleMazeGenerator extends AMazeGenerator {
     public Maze generate(int rows, int cols) {
         if(rows<=0 || cols <=0) return null;
         Maze mySimpleMaze = new Maze(rows, cols);
+
+        // Special Case - if there is just 1 row/col don't create walls
         if(rows != 1 && cols !=1){
             Random random = new Random();
             for(int i=1;i<mySimpleMaze.getRows();i++){
