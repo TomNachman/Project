@@ -1,5 +1,6 @@
 package algorithms.mazeGenerators;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -27,8 +28,12 @@ public class Position {
         return y;
     }
 
-    public Collection<Position> getNeighbors(){
-        Collection<Position> myNeighbors = null;
+    public Collection<Position> getWallNeighbors(Maze maze){
+        ArrayList<Position> myNeighbors = new ArrayList<Position>();
+        if(maze.isWall(getRowIndex()+1, getColumnIndex())) myNeighbors.add(new Position(getRowIndex()+1, getColumnIndex()));
+        if(maze.isWall(getRowIndex()-1, getColumnIndex())) myNeighbors.add(new Position(getRowIndex()-1, getColumnIndex()));
+        if(maze.isWall(getRowIndex(), getColumnIndex()+1)) myNeighbors.add(new Position(getRowIndex(), getColumnIndex()+1));
+        if(maze.isWall(getRowIndex(), getColumnIndex()-1)) myNeighbors.add(new Position(getRowIndex(), getColumnIndex()-1));
         return myNeighbors;
     }
 }

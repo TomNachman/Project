@@ -23,10 +23,10 @@ public class MyMazeGenerator extends AMazeGenerator{
 
     private Position GetRandomCellOnEdge(int row, int col){
         Random rand = new Random();
-        int myRow = rand.nextInt(row-1);
-        int myCol = (int)Math.round(Math.random())*col;
+        int myRow = rand.nextInt(row); //0-49
+        int myCol = ((int)Math.round(Math.random()))*(col-1); // 0 or 49
         if (myRow==0 || myRow==row-1){
-            myCol = rand.nextInt(row-1);
+            myCol = rand.nextInt(col);
         }
         return new Position(myRow, myCol);
     }
@@ -42,79 +42,33 @@ public class MyMazeGenerator extends AMazeGenerator{
         3.2 Remove the wall from the list.
     */
     private Maze Prim(Maze myMaze){
-        FillGridWithWalls(myMaze);
-        ArrayList<Position> walls = new ArrayList<>();
-        //ArrayList<Position> cellMaze = new ArrayList<>();
-        //Position firstCell = GetRandomCellOnEdge(myMaze.getRows(), myMaze.getCols());
-        //myMaze.setValue(firstCell, 0);
-        // TODO: getNeighbors() Function
-        //walls.addAll(firstCell.getNeighbors());
+        FillGridWithWalls(myMaze); // 1.
+        ArrayList<Position> walls = new ArrayList<>();  // 1.
+        myMaze.setStartPosition(GetRandomCellOnEdge(myMaze.getRows(), myMaze.getCols())); // 2.
+        walls.addAll(myMaze.getStartPosition().getWallNeighbors(myMaze)); // 2.
+
+        Position currentWall;
         Random rand = new Random();
-        myMaze.setStartPosition(new Position(0,rand.nextInt(myMaze.getCols())));
-        walls.add(myMaze.getStartPosition());
-        Position currentPos = new Position(0,0);
 
-        //
-        while (!walls.isEmpty()){
-
-            if (walls.size() == 1) currentPos = walls.remove(0); //3.2
-            else currentPos = walls.remove(rand.nextInt(walls.size()-1)); //3.2
-
-            while(!HaveOneWall(myMaze,currentPos)){
-
-                if (walls.size()>1) currentPos = walls.remove(rand.nextInt(walls.size()-1)); //3.2
-                else {
-                    if (walls.size() != 0) currentPos = walls.remove(0); //3.2
-                    else break;
-                }
+        while (!walls.isEmpty()){ // 3.
+            if(walls.size()==1) {currentWall = walls.remove(0);}
+            else {currentWall = walls.remove(rand.nextInt(walls.size()));} //3.1
+            if(OnlyOneNeighborVisited(myMaze,currentWall)){ // 3.1
+                myMaze.MakePath(currentWall); //3.1.1
+                walls.addAll(currentWall.getWallNeighbors(myMaze)); // 3.1.2
+                if(myMaze.onEdges(currentWall)) myMaze.setGoalPosition(currentWall);
             }
-            myMaze.MakePath(currentPos); //3.1.1
-            AddNeighborsOfPos(myMaze,currentPos,walls); //3.1.2
+            walls.remove(currentWall);
         }
-        // TODO: need to set goal position and then return the maze
-
         return myMaze;
     }
 
-    /**
-     * Adds Neighbors Walls of the current Position to walls ArrayList
-     * @param myMaze
-     * @param currentPos
-     * @param walls
-     */
-
-    private void AddNeighborsOfPos(Maze myMaze, Position currentPos, ArrayList<Position> walls) {
-        if (walls!=null && !walls.isEmpty()){
-            //Check if Up is wall
-            if(myMaze.isWall(currentPos.getRowIndex()+1,currentPos.getColumnIndex())){
-                Position Up = new Position(currentPos.getRowIndex()+1,currentPos.getColumnIndex());
-                if(walls.contains(Up))walls.add(Up);
-            }
-            //Check if Down is wall
-            if(myMaze.isWall(currentPos.getRowIndex()-1,currentPos.getColumnIndex())){
-                Position Down = new Position(currentPos.getRowIndex()-1,currentPos.getColumnIndex());
-                if(walls.contains(Down))walls.add(Down);
-            }
-            //Check if Right is wall
-            if(myMaze.isWall(currentPos.getRowIndex(),currentPos.getColumnIndex()+1)){
-                Position Right = new Position(currentPos.getRowIndex()+1,currentPos.getColumnIndex()+1);
-                if(walls.contains(Right))walls.add(Right);
-            }
-            //Check if Left is wall
-            if(myMaze.isWall(currentPos.getRowIndex(),currentPos.getColumnIndex()-1)){
-                Position Left = new Position(currentPos.getRowIndex()+1,currentPos.getColumnIndex()-1);
-                if(walls.contains(Left))walls.add(Left);
-            }
-        }
-    }
-
-
-    private boolean HaveOneWall(Maze myMaze, Position PosToCheck) {
+    private boolean OnlyOneNeighborVisited(Maze myMaze, Position PosToCheck) {
         int wallCounter=0;
-        if (myMaze.isValidCell(PosToCheck.getRowIndex(),PosToCheck.getColumnIndex()+1)) wallCounter++;
-        if (myMaze.isValidCell(PosToCheck.getRowIndex(),PosToCheck.getColumnIndex()-1)) wallCounter++;
-        if (myMaze.isValidCell(PosToCheck.getRowIndex()+1,PosToCheck.getColumnIndex())) wallCounter++;
-        if (myMaze.isValidCell(PosToCheck.getRowIndex()-1,PosToCheck.getColumnIndex())) wallCounter++;
+        if (myMaze.isPartOfThePath(PosToCheck.getRowIndex(),PosToCheck.getColumnIndex()+1)) wallCounter++;
+        if (myMaze.isPartOfThePath(PosToCheck.getRowIndex(),PosToCheck.getColumnIndex()-1)) wallCounter++;
+        if (myMaze.isPartOfThePath(PosToCheck.getRowIndex()+1,PosToCheck.getColumnIndex())) wallCounter++;
+        if (myMaze.isPartOfThePath(PosToCheck.getRowIndex()-1,PosToCheck.getColumnIndex())) wallCounter++;
         if (wallCounter > 1) return false;
         return true;
     }
@@ -126,7 +80,7 @@ public class MyMazeGenerator extends AMazeGenerator{
     private void FillGridWithWalls(Maze myMaze){
         for (int i = 0; i < myMaze.getRows(); i++) {
             for (int j = 0; j < myMaze.getCols(); j++) {
-                myMaze.setValue(i,j,1);
+                myMaze.MakeWall(i,j);
             }
         }
     }
