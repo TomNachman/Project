@@ -1,5 +1,8 @@
 package algorithms.mazeGenerators;
 
+/**
+ *
+ */
 public class Maze {
     private int [][] myMaze;
     private int rows;
@@ -7,7 +10,11 @@ public class Maze {
     private Position startPosition;
     private Position goalPosition;
 
-
+    /**
+     * Maze Constructor: initiate the rows, cols and myMaze
+     * @param rows - num of rows to initiate in the maze
+     * @param cols - num of cols to initiate in the maze
+     */
     public Maze(int rows, int cols) {
         this.cols = cols;
         this.rows = rows;
@@ -16,22 +23,56 @@ public class Maze {
         this.goalPosition = null;
     }
 
+    /**
+     *
+     * @return num of rows
+     */
+    public int getRows() {
+        return rows;
+    }
+
+    /**
+     *
+     * @return num of columns
+     */
+    public int getCols() {
+        return cols;
+    }
+
+    /**
+     * @return Position - the startPosition in the maze
+     */
     public Position getStartPosition() {
         return startPosition;
     }
 
+    /**
+     * @return Position - the GoalPosition in the maze
+     */
     public Position getGoalPosition() {
         return goalPosition;
     }
 
-    public void setStartPosition(Position s){ startPosition=s; }
+    /**
+     *
+     * @param start - startPosition to set
+     */
+    public void setStartPosition(Position start){ startPosition = start; }
 
-    public void setGoalPosition(Position tryPos){
-        if (validGoalPosition(tryPos)){
-            if(GraterDistance(tryPos)) this.goalPosition = tryPos;
-        }
+    /**
+     *
+     * @param goal - goalPosition to set (only if all condition are true)
+     */
+    public void setGoalPosition(Position goal){
+        if (validGoalPosition(goal) && GraterDistance(goal))
+            this.goalPosition = goal;
     }
 
+    /**
+     * Checks if a given Position 'p' valid - not in the same edge as the startPosition
+     * @param p - the position we want to check if is valid
+     * @return true - if the position is fix to be a goalPosition
+     */
     private  boolean validGoalPosition(Position p){
         if((getStartPosition().getRowIndex()==0 && p.getRowIndex()==0) ||
            (getStartPosition().getRowIndex()==getRows()-1 && p.getRowIndex()==getRows()-1) ||
@@ -41,7 +82,12 @@ public class Maze {
         else return true;
     }
 
-    public boolean GraterDistance(Position p1){
+    /**
+     * Check if the given position (p) is in a grater distance from the startPosition then the current goalPosition
+     * @param p1 - the new position to check
+     * @return true - if the new position grater then the currPosition (goalPosition)
+     */
+    private  boolean GraterDistance(Position p1){
         if(goalPosition==null){return true;}
         double distP1 = Math.sqrt(Math.pow(p1.getRowIndex()-startPosition.getRowIndex(),2) + Math.pow(p1.getColumnIndex()-startPosition.getColumnIndex(),2));
         double distP2 = Math.sqrt(Math.pow(goalPosition.getRowIndex()-startPosition.getRowIndex(),2) + Math.pow(goalPosition.getColumnIndex()-startPosition.getColumnIndex(),2));
@@ -49,6 +95,11 @@ public class Maze {
         return false;
     }
 
+    /**
+     * Check if a given position is on the edge of the Maze
+     * @param pos - the position to check
+     * @return true - if the pos on the edges
+     */
     public boolean onEdges(Position pos){
         if( pos.getRowIndex()==0    || pos.getRowIndex()==getRows()-1 ||
             pos.getColumnIndex()==0 || pos.getColumnIndex()==getCols()-1){
@@ -57,24 +108,17 @@ public class Maze {
         return false;
     }
 
-    public int getRows() {
-        return rows;
-    }
-
-    public int getCols() {
-        return cols;
-    }
-
+    /**
     public int[][] getMyMaze() {
         return myMaze;
     }
-
+    * /
 
     /**
-     * Return if the cell is in boundaries and if it is not a Wall.
+     * Return if the cell is in boundaries of the Maze
      * @param row - Row number
      * @param col - Column number
-     * @return True if the cell is valid. False if not.
+     * @return True if the cell is valid.
      */
     private boolean isValidCell (int row , int col){
         if(row<this.rows && row>=0 && col<this.cols && col>=0)
@@ -82,6 +126,12 @@ public class Maze {
         return false;
     }
 
+    /**
+     * Return if the cell is part of the Path (white cell)
+     * @param row - Row number
+     * @param col - Column number
+     * @return true - if the cell is part of the Path
+     */
     public boolean isPartOfThePath (int row , int col){
         if(isValidCell(row,col))
             if(myMaze[row][col] == 0)
@@ -89,6 +139,12 @@ public class Maze {
         return false;
     }
 
+    /**
+     * Return if the cell is part of the walls (black cell)
+     * @param row - Row number
+     * @param col - column number
+     * @return true if the cell is a wall
+     */
     public boolean isWall(int row,int col){
         if(isValidCell(row,col)){
             if (myMaze[row][col]==1)
@@ -98,8 +154,8 @@ public class Maze {
     }
 
     /**
-     * Set the value of the given position to zero
-     * @param pos
+     * Set the value of the given position to a path (0)
+     * @param pos - the position to change
      */
     public void MakePath(Position pos){
         if(isValidCell(pos.getRowIndex(), pos.getColumnIndex())){
@@ -107,19 +163,30 @@ public class Maze {
         }
     }
 
+    /**
+     * Set the value of the given position to a wall (1)
+     * @param pos - the position to change
+     */
     public void MakeWall(Position pos){
         if(isValidCell(pos.getRowIndex(), pos.getColumnIndex())){
             myMaze[pos.getRowIndex()][pos.getColumnIndex()] =1 ;
         }
     }
 
+    /**
+     *  Set the value of the given cell to a wall (1)
+     * @param row - Row number
+     * @param col - Column number
+     */
     public void MakeWall(int row, int col){
         if(isValidCell(row, col)){
             myMaze[row][col] = 1;
         }
     }
 
-
+    /**
+     * Print the Maze to the command
+     */
     public void print(){
         if(this.getGoalPosition()==null) {goalPosition = new Position(getRows()-1, getCols()-1);}
         for (int i = 0; i < this.rows; i++) {

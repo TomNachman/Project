@@ -2,8 +2,18 @@ package algorithms.mazeGenerators;
 
 import java.util.Random;
 
+/**
+ * SimpleMazeGenerator - Class of Maze Based on Simple Random distribution.
+ * @author Asaf Salomon and Tom Nachman
+ */
 public class SimpleMazeGenerator extends AMazeGenerator {
 
+    /**
+     * Generates a new Maze according simple random distribution
+     * @param rows - Num of rows in the maze
+     * @param cols - Num of columns in the maze
+     * @return Complete Simple Maze
+     */
     @Override
     public Maze generate(int rows, int cols) {
         if(rows<=0 || cols <=0) return null;

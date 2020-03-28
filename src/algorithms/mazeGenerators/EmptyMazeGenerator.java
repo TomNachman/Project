@@ -4,6 +4,12 @@ import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 
 public class EmptyMazeGenerator extends AMazeGenerator {
 
+    /**
+     * Generates a new Empty Maze (without walls)
+     * @param rows - Num of rows in the maze
+     * @param cols - Num of columns in the maze
+     * @return Complete empty Maze
+     */
     @Override
     public Maze generate(int rows, int cols) {
         if(rows<=0 || cols <=0) return null;

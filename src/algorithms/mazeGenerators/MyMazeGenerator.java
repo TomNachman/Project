@@ -3,16 +3,18 @@ package algorithms.mazeGenerators;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * MyMazeGenerator - Class of Maze Based on Smart Algorithm.
+ * @author Asaf Salomon and Tom Nachman
+ */
+public class MyMazeGenerator extends AMazeGenerator {
 
-public class MyMazeGenerator extends AMazeGenerator{
     /**
-     * generates a new Maze according to prim's algorithm
-     *
+     * Generates a new Maze according to prim's algorithm
      * @param rows - Num of rows in the maze
-     * @param cols -Num of coulmns in the maze
-     * @return Maze
+     * @param cols - Num of columns in the maze
+     * @return Complete Smart Maze
      */
-
     @Override
     public Maze generate(int rows, int cols) {
         if(rows<=0 || cols <=0) return null;
@@ -21,6 +23,12 @@ public class MyMazeGenerator extends AMazeGenerator{
         return myMaze;
     }
 
+    /**
+     * Chose random position on the edges of a given maze boundaries
+     * @param row - Num of rows in the maze
+     * @param col - Num of columns in the maze
+     * @return Valid Position on the edge
+     */
     private Position GetRandomCellOnEdge(int row, int col){
         Random rand = new Random();
         int myRow = rand.nextInt(row); //0-49
@@ -31,16 +39,18 @@ public class MyMazeGenerator extends AMazeGenerator{
         return new Position(myRow, myCol);
     }
 
+
     /**
-    This algorithm is a randomized version of Prim's algorithm:
-    1. Start with a grid full of walls. (done)
-    2. Pick a cell, mark it as part of the maze. Add the walls of the cell to the wall list.
-    3. While there are walls in the list:
-        3.1 Pick a random wall from the list. If only one of the two cells that the wall divides is visited, then:
-            3.1.1 Make the wall a passage and mark the unvisited cell as part of the maze.
-            3.1.2 Add the neighboring walls of the cell to the wall list.
-        3.2 Remove the wall from the list.
-    */
+     * This algorithm is a randomized version of Prim's algorithm:
+     *   1. Start with a grid full of walls. (done)
+     *   2. Pick a cell, mark it as part of the maze. Add the walls of the cell to the wall list.
+     *   3. While there are walls in the list:
+     *      3.1 Pick a random wall from the list. If only one of the two cells that the wall divides is visited, then:
+     *          3.1.1 Make the wall a passage and mark the unvisited cell as part of the maze.
+     *          3.1.2 Add the neighboring walls of the cell to the wall list.
+     *      3.2 Remove the wall from the list.
+     * @return - Prim Based Maze
+     */
     private Maze Prim(Maze myMaze){
         FillGridWithWalls(myMaze); // 1.
         ArrayList<Position> walls = new ArrayList<>();  // 1.
@@ -63,6 +73,12 @@ public class MyMazeGenerator extends AMazeGenerator{
         return myMaze;
     }
 
+    /**
+     * Check if a given Position have exactly 1 visited neighbor
+     * @param myMaze - the maze
+     * @param PosToCheck - the position we want to check
+     * @return true - if the given position have exactly 1 visited neighbor
+     */
     private boolean OnlyOneNeighborVisited(Maze myMaze, Position PosToCheck) {
         int wallCounter=0;
         if (myMaze.isPartOfThePath(PosToCheck.getRowIndex(),PosToCheck.getColumnIndex()+1)) wallCounter++;
@@ -74,7 +90,7 @@ public class MyMazeGenerator extends AMazeGenerator{
     }
 
     /**
-     * building walls(one's) all over the maze
+     * filling the whole maze with walls (1's)
      * @param myMaze
      */
     private void FillGridWithWalls(Maze myMaze){
