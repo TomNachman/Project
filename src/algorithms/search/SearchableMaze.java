@@ -13,6 +13,7 @@ public class SearchableMaze implements ISearchable {
 
     @Override
     public ArrayList<AState> getAllPossibleStates(AState state) {
+        ArrayList<AState> myList = new ArrayList<>();
 
 
         return null;
