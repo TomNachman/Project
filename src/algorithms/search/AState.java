@@ -3,6 +3,7 @@ package algorithms.search;
 import algorithms.mazeGenerators.Position;
 
 public abstract class AState {
+    //private String myName;
     private int val = -1;
     private AState prev;
     private Position myPos;
@@ -18,17 +19,11 @@ public abstract class AState {
 
     public int getVal() { return val;}
 
-    public AState getPrev() {
-        return prev;
-    }
+    public AState getPrev() {return prev; }
 
-    public boolean isVisited() {
-        return visited;
-    }
+    public boolean isVisited() { return visited;}
 
-    public void setVisited(boolean visited) {
-        this.visited = visited;
-    }
+    public void setVisited(boolean visited) { this.visited = visited;}
 
     public void setVal(int val) {
         this.val = val;
@@ -36,7 +31,7 @@ public abstract class AState {
 
     public void setPrev(AState newPrev) {
         this.prev = newPrev;
-        this.val = prev.getVal()+1;
+        //this.setVal(newPrev.getVal()+1);
     }
 
     @Override

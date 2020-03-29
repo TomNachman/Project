@@ -1,5 +1,4 @@
 package test;
-
 import algorithms.mazeGenerators.IMazeGenerator;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
@@ -8,11 +7,14 @@ import java.util.ArrayList;
 public class RunSearchOnMaze {
     public static void main(String[] args) {
         IMazeGenerator mg = new MyMazeGenerator();
-        Maze maze = mg.generate(3, 3);
+        Maze maze = mg.generate(100, 1000);
         maze.print();
         SearchableMaze searchableMaze = new SearchableMaze(maze);
         //solveProblem(searchableMaze, new BreadthFirstSearch());
+        long startTime = System.currentTimeMillis();
         solveProblem(searchableMaze, new DepthFirstSearch());
+        long endTime = System.currentTimeMillis();
+        System.out.println(String.format("Time in Seconds: %d", (endTime - startTime)/1000));
         //solveProblem(searchableMaze, new BestFirstSearch());
     }
     private static void solveProblem(ISearchable domain, ISearchingAlgorithm
@@ -24,7 +26,7 @@ public class RunSearchOnMaze {
                 System.out.println("Solution path:");
         ArrayList<AState> solutionPath = solution.getSolutionPath();
         for (int i = 0; i < solutionPath.size(); i++) {
-            System.out.println(String.format("%s. %s, distance: %d",i,solutionPath.get(i), solutionPath.get(i).getVal()));
+            System.out.println(String.format("%s. %s",i,solutionPath.get(i)));
         }
     }
 }

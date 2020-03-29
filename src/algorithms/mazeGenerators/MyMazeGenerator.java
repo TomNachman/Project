@@ -57,6 +57,7 @@ public class MyMazeGenerator extends AMazeGenerator {
 
         Position currentWall;
         Random rand = new Random();
+        int changeGoal = 0;
 
         while (!walls.isEmpty()){ // 3.
             if(walls.size()==1) {currentWall = walls.remove(0);}
@@ -64,7 +65,10 @@ public class MyMazeGenerator extends AMazeGenerator {
             if(OnlyOneNeighborVisited(myMaze,currentWall)){ // 3.1
                 myMaze.MakePath(currentWall); //3.1.1
                 walls.addAll(currentWall.getWallNeighbors(myMaze)); // 3.1.2
-                if(myMaze.onEdges(currentWall)) myMaze.setGoalPosition(currentWall);
+                if(changeGoal<=2 && myMaze.onEdges(currentWall)) {
+                    myMaze.setGoalPosition(currentWall);
+                    changeGoal++;
+                }
             }
             walls.remove(currentWall);
         }

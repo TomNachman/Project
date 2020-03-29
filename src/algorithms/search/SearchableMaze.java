@@ -12,6 +12,7 @@ public class SearchableMaze implements ISearchable {
 
     public SearchableMaze(Maze maze) {
         this.maze = maze;
+
         for(int i = 0; i<maze.getRows();i++){
             for(int j=0; j<maze.getCols();j++){
                 if(maze.isPartOfThePath(i,j))
@@ -43,23 +44,76 @@ public class SearchableMaze implements ISearchable {
 
     private ArrayList<MazeState> GetAllNeighbors(MazeState state){
         ArrayList<MazeState> myList = new ArrayList<MazeState>();
-
+        /**
         for(int i= state.getPosition().getRowIndex()-1; i <= state.getPosition().getRowIndex()+1; i++){
             for(int j= state.getPosition().getColumnIndex()-1; j <= state.getPosition().getColumnIndex()+1; j++) {
                 Position pos = new Position(i,j);
                 if(maze.isPartOfThePath(pos.getRowIndex(), pos.getColumnIndex()) && !pos.equals(state.getPosition()))
                 {
                     MazeState m = myStates.stream().filter(ms->ms.getPosition().equals(pos)).findAny().orElse(null);
-                    if(m.isBetterPrev(state)) {
-                        m.setPrev(state);
-                        m.setVal(m.getPrev().getVal() + 1);
-                    }
-                    if(!m.isVisited()){
-                        m.setVisited(true);
-                        myList.add(m);
-                    }
+                    myList.add(m);
                 }
             }
+        }
+        Position Up =  new Position(state.getPosition().getRowIndex()-1, state.getPosition().getColumnIndex());
+        Position UpRight =  new Position(state.getPosition().getRowIndex()-1, state.getPosition().getColumnIndex()+1);
+        Position Right =  new Position(state.getPosition().getRowIndex(), state.getPosition().getColumnIndex()+1);
+        Position DownRight =  new Position(state.getPosition().getRowIndex()+1, state.getPosition().getColumnIndex()+1);
+        Position Down =  new Position(state.getPosition().getRowIndex()+1, state.getPosition().getColumnIndex());
+        Position DownLeft =  new Position(state.getPosition().getRowIndex()+1, state.getPosition().getColumnIndex()-1);
+        Position Left =  new Position(state.getPosition().getRowIndex(), state.getPosition().getColumnIndex()-1);
+        Position UpLeft =  new Position(state.getPosition().getRowIndex()-1, state.getPosition().getColumnIndex()-1);
+        */
+        int row = state.getRowIndex();
+        int col = state.getColIndex();
+
+        boolean boolUp = false;
+        boolean boolDown = false;
+        boolean boolRight = false;
+        boolean boolLeft = false;
+
+        // Up
+        if(maze.isPartOfThePath(row-1, col)) {
+            boolUp = true;
+            myList.add(new MazeState(row-1, col));
+        }
+
+        // Right
+        if(maze.isPartOfThePath(row, col+1)) {
+            boolRight = true;
+            myList.add(new MazeState(row, col +1));
+        }
+
+        // UpRight
+        if(maze.isPartOfThePath(row-1, col+1) && (boolUp||boolRight)) {
+            myList.add(new MazeState(row-1, col+1));
+        }
+
+        // Down
+        if(maze.isPartOfThePath(row+1, col)) {
+            boolDown = true;
+            myList.add(new MazeState(row + 1, col));
+        }
+
+        // DownRight
+        if(maze.isPartOfThePath(row+1, col+1) && (boolDown||boolRight)) {
+            myList.add(new MazeState(row+1, col+1));
+        }
+
+        // Left
+        if(maze.isPartOfThePath(row, col-1)) {
+            boolLeft = true;
+            myList.add(new MazeState(row , col-1));
+        }
+
+        // DownLeft
+        if(maze.isPartOfThePath(row+1, col-1) && (boolDown||boolLeft)) {
+            myList.add(new MazeState(row+1, col-1));
+        }
+
+        // UpLeft
+        if(maze.isPartOfThePath(row-1, col-1) && (boolUp||boolLeft)) {
+            myList.add(new MazeState(row-1, col-1));
         }
         return myList;
     }

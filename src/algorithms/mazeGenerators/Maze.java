@@ -126,6 +126,10 @@ public class Maze {
     public boolean isPartOfThePath (int row , int col){
         return (isValidCell(row,col) && myMaze[row][col] == 0);
     }
+    public boolean isPartOfThePath (Position pos){
+        return isPartOfThePath(pos.getRowIndex(), pos.getColumnIndex());
+    }
+
 
     /**
      * Return if the cell is part of the walls (black cell)

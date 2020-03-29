@@ -8,8 +8,15 @@ public class MazeState extends AState{
         super(position);
     }
 
-    public boolean isBetterPrev(AState state){
-        if(getPrev()==null) return true;
-        return (state.getVal()+1 < this.getVal());
+    public MazeState(int row, int col){
+        super(new Position(row, col));
+    }
+
+    public int getRowIndex(){
+        return this.getPosition().getRowIndex();
+    }
+
+    public int getColIndex(){
+        return this.getPosition().getColumnIndex();
     }
 }
