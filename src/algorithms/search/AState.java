@@ -3,7 +3,7 @@ package algorithms.search;
 import algorithms.mazeGenerators.Position;
 
 public abstract class AState {
-    private int val;
+    private int val = -1;
     private AState prev;
     private Position myPos;
     private boolean visited = false;

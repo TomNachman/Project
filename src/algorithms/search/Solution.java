@@ -11,19 +11,13 @@ public class Solution {
     }
 
     public ArrayList<AState> getSolutionPath(){
-        System.out.println("My Solution Path:");
         ArrayList<AState> mySolution = new ArrayList<AState>();
         AState tmp = this.goalState;
-        System.out.println("Goal Val is:");
-        System.out.println(tmp.getVal());
         while (tmp!=this.startState){
-            System.out.println("While: ");
-            System.out.println(tmp.getPosition());
-            mySolution.add(tmp);
-            System.out.println("Before: ");
+            mySolution.add(0,tmp);
             tmp = tmp.getPrev();
-            System.out.println("After: ");
         }
+        mySolution.add(0, startState);
         return mySolution;
     }
 }
