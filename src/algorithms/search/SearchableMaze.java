@@ -50,8 +50,10 @@ public class SearchableMaze implements ISearchable {
                 if(maze.isPartOfThePath(pos.getRowIndex(), pos.getColumnIndex()) && !pos.equals(state.getPosition()))
                 {
                     MazeState m = myStates.stream().filter(ms->ms.getPosition().equals(pos)).findAny().orElse(null);
-                    if(m.isBetterPrev(state))
+                    if(m.isBetterPrev(state)) {
                         m.setPrev(state);
+                        m.setVal(m.getPrev().getVal() + 1);
+                    }
                     if(!m.isVisited()){
                         m.setVisited(true);
                         myList.add(m);

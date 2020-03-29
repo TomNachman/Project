@@ -17,14 +17,15 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
         ArrayList<MazeState> neighbors;
 
         // first StartState
-        //iSearchable.getStartState().setVal(0);
+        iSearchable.getStartState().setVal(0);
+        iSearchable.getStartState().setVisited(true);
         stack.add(iSearchable.getStartState());
 
         while (!stack.empty()){
             MazeState currMazeState = stack.pop();
             this.numberOfNodesEvaluated++;
             neighbors = iSearchable.getAllPossibleStates(currMazeState);
-            if(neighbors.size()>=1) {this.numberOfNodesEvaluated++;}
+            //if(neighbors.size()>=1) {this.numberOfNodesEvaluated++;}
             for (MazeState a:neighbors){
                 //if(!a.isVisited()) {
                     stack.push(a);
