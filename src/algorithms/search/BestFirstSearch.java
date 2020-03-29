@@ -2,6 +2,10 @@ package algorithms.search;
 
 public class BestFirstSearch extends ASearchingAlgorithm {
 
+    public BestFirstSearch() {
+        super(BestFirstSearch.class.getSimpleName());
+    }
+
     @Override
     public Solution solve(ISearchable iSearchable) {
         return null;

@@ -57,7 +57,10 @@ public class Maze {
      *
      * @param start - startPosition to set
      */
-    public void setStartPosition(Position start){ startPosition = start; }
+    public void setStartPosition(Position start){
+        startPosition = start;
+        myMaze[start.getRowIndex()][start.getColumnIndex()] = 0;
+    }
 
     /**
      *
@@ -73,7 +76,7 @@ public class Maze {
      * @param p - the position we want to check if is valid
      * @return true - if the position is fix to be a goalPosition
      */
-    private  boolean validGoalPosition(Position p){
+    private boolean validGoalPosition(Position p){
         if((getStartPosition().getRowIndex()==0 && p.getRowIndex()==0) ||
            (getStartPosition().getRowIndex()==getRows()-1 && p.getRowIndex()==getRows()-1) ||
            (getStartPosition().getColumnIndex()==0 && p.getColumnIndex()==0) ||
@@ -110,7 +113,7 @@ public class Maze {
      * @param col - Column number
      * @return True if the cell is valid.
      */
-    private boolean isValidCell (int row , int col){
+    public boolean isValidCell (int row , int col){
         return (row<this.rows && row>=0 && col<this.cols && col>=0);
     }
 

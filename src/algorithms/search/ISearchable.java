@@ -1,7 +1,11 @@
 package algorithms.search;
 
+import algorithms.mazeGenerators.Maze;
+
 import java.util.ArrayList;
 
 public interface ISearchable {
-    ArrayList<AState> getAllPossibleStates(AState state);
+    ArrayList<MazeState> getAllPossibleStates(MazeState state);
+    MazeState getStartState();
+    MazeState getGoalState();
 }

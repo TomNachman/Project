@@ -1,20 +1,49 @@
 package algorithms.search;
 
 import algorithms.mazeGenerators.Position;
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
 
 public abstract class AState {
     private int val;
-    private AState cameFrom;
-    private Position position;
+    private AState prev;
+    private Position myPos;
+    private boolean visited = false;
 
     public AState(Position position) {
-        this.position = position;
+        this.myPos = position;
+    }
+
+    public Position getPosition() {
+        return myPos;
+    }
+
+    public int getVal() {
+        return val;
+    }
+
+    public AState getPrev() {
+        return prev;
+    }
+
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
+    }
+
+    public void setVal(int val) {
+        this.val = val;
+    }
+
+    public void setPrev(AState newPrev) {
+        this.prev = newPrev;
+        this.val = prev.getVal()+1;
     }
 
     @Override
     public String toString() {
-        return position.toString();
+        return myPos.toString();
     }
 }
 
