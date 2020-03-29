@@ -48,7 +48,21 @@ public class SearchableMaze implements ISearchable {
         System.out.print("My state is: ");
         System.out.println(state.getPosition());
 
-        for (MazeState ms:myStates){
+
+        for(int i= state.getPosition().getRowIndex()-1; i <= state.getPosition().getRowIndex()+1; i++){
+            for(int j= state.getPosition().getColumnIndex()-1; j <= state.getPosition().getColumnIndex()+1; j++) {
+                Position pos = new Position(i,j);
+                if(maze.isPartOfThePath(pos.getRowIndex(), pos.getColumnIndex()) &&
+                        !(pos.getRowIndex() == state.getPosition().getRowIndex() && pos.getColumnIndex() == state.getPosition().getColumnIndex()))
+                {
+                    MazeState m = myStates.stream().filter(ms->ms.getPosition().getRowIndex() == pos.getRowIndex() &&
+                                                            ms.getPosition().getColumnIndex() == pos.getColumnIndex()).findAny().orElse(null);
+                    myList.add(m);
+                }
+            }
+        }
+        /**
+        for (MazeState ms:myStates.stream().filter(a->Math.abs(a.getPosition().getRowIndex()-state.getPosition().getRowIndex()))){
             if((Math.sqrt(Math.pow(ms.getPosition().getRowIndex() - state.getPosition().getRowIndex(),2) +
                 Math.pow(ms.getPosition().getColumnIndex() - state.getPosition().getColumnIndex(),2)) ==1) &&
                 (maze.isPartOfThePath(ms.getPosition().getRowIndex(), ms.getPosition().getColumnIndex())) &&
@@ -59,6 +73,7 @@ public class SearchableMaze implements ISearchable {
                 myList.add(ms);
             }
         }
+         */
         return myList;
     }
 }

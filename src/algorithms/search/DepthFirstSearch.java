@@ -16,15 +16,9 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
         ArrayList<MazeState> neighbors;
 
         // first StartState
-        System.out.println(iSearchable.getStartState());
         iSearchable.getStartState().setVal(0);
         stack.add(iSearchable.getStartState());
 
-        System.out.println("");
-
-
-
-        /**
         while (!stack.empty()){
             System.out.println("New Stack Not Empty");
             MazeState currMazeState = stack.pop();
@@ -42,7 +36,17 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
             }
             neighbors.clear();
         }
-        */
+
+        AState tmp = iSearchable.getGoalState();
+        System.out.println("Goal Val is:");
+        System.out.println(tmp.getVal());
+        while (tmp!=iSearchable.getStartState()){
+            System.out.println("While: ");
+            System.out.println(tmp.getPosition());
+            System.out.println("Before: ");
+            tmp = tmp.getPrev();
+            System.out.println("After: ");
+        }
         Solution solution = new Solution(iSearchable.getStartState(), iSearchable.getGoalState());
         return solution;
     }
