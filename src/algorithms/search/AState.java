@@ -16,9 +16,7 @@ public abstract class AState {
         return myPos;
     }
 
-    public int getVal() {
-        return val;
-    }
+    public int getVal() { return val;}
 
     public AState getPrev() {
         return prev;

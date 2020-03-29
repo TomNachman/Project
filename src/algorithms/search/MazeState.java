@@ -9,7 +9,7 @@ public class MazeState extends AState{
     }
 
     public boolean isBetterPrev(AState state){
-        if(this.getVal()==-1) return true;
-        return (state.getVal()+1 <this.getVal());
+        if(getPrev()==null) return true;
+        return (state.getVal()+1 < this.getVal());
     }
 }

@@ -25,12 +25,8 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
             MazeState currMazeState = stack.pop();
             this.numberOfNodesEvaluated++;
             neighbors = iSearchable.getAllPossibleStates(currMazeState);
-            //if(neighbors.size()>=1) {this.numberOfNodesEvaluated++;}
             for (MazeState a:neighbors){
-                //if(!a.isVisited()) {
-                    stack.push(a);
-                    //a.setVisited(true);
-                //}
+                stack.push(a);
             }
             neighbors.clear();
         }
