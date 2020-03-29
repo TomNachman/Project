@@ -8,4 +8,5 @@ public interface ISearchable {
     ArrayList<MazeState> getAllPossibleStates(MazeState state);
     MazeState getStartState();
     MazeState getGoalState();
+    int getWhites();
 }

@@ -37,6 +37,10 @@ public class SearchableMaze implements ISearchable {
         //TODO: add diagonals!!!
     }
 
+    public int getWhites(){
+        return myStates.size();
+    }
+
     private ArrayList<MazeState> GetAllNeighbors(MazeState state){
         ArrayList<MazeState> myList = new ArrayList<MazeState>();
 
@@ -46,7 +50,12 @@ public class SearchableMaze implements ISearchable {
                 if(maze.isPartOfThePath(pos.getRowIndex(), pos.getColumnIndex()) && !pos.equals(state.getPosition()))
                 {
                     MazeState m = myStates.stream().filter(ms->ms.getPosition().equals(pos)).findAny().orElse(null);
-                    myList.add(m);
+                    if(m.isBetterPrev(state))
+                        m.setPrev(state);
+                    if(!m.isVisited()){
+                        m.setVisited(true);
+                        myList.add(m);
+                    }
                 }
             }
         }

@@ -22,19 +22,23 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
 
         while (!stack.empty()){
             MazeState currMazeState = stack.pop();
+            this.numberOfNodesEvaluated++;
             neighbors = iSearchable.getAllPossibleStates(currMazeState);
             if(neighbors.size()>=1) {this.numberOfNodesEvaluated++;}
             for (MazeState a:neighbors){
-                if(a.isBetterPrev(currMazeState)) {
-                    a.setPrev(currMazeState);
-                }
-                if(!a.isVisited()) {
+                //if(!a.isVisited()) {
                     stack.push(a);
-                    a.setVisited(true);
-                }
+                    //a.setVisited(true);
+                //}
             }
             neighbors.clear();
         }
+
+        System.out.println(String.format("numberOfNodesEvaluated: %d", this.numberOfNodesEvaluated));
+        System.out.println(String.format("number of Whites: %d", iSearchable.getWhites()));
         return new Solution(iSearchable.getStartState(), iSearchable.getGoalState());
     }
+
+    @Override
+    public int getNumberOfNodesEvaluated() { return this.numberOfNodesEvaluated;}
 }
