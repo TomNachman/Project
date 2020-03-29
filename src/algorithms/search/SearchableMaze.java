@@ -14,21 +14,20 @@ public class SearchableMaze implements ISearchable {
         this.maze = maze;
         for(int i = 0; i<maze.getRows();i++){
             for(int j=0; j<maze.getCols();j++){
-                if(maze.isPartOfThePath(i,j)) myStates.add(new MazeState(new Position(i,j)));
+                if(maze.isPartOfThePath(i,j))
+                    myStates.add(new MazeState(new Position(i,j)));
             }
         }
     }
 
     @Override
     public MazeState getStartState() {
-        return myStates.stream().filter(ms->ms.getPosition().getRowIndex() == maze.getStartPosition().getRowIndex() &&
-                                        ms.getPosition().getColumnIndex() == maze.getStartPosition().getColumnIndex()).findAny().orElse(null);
-    }
+        return myStates.stream().filter(ms->ms.getPosition().equals(maze.getStartPosition())).findAny().orElse(null);
+     }
 
     @Override
     public MazeState getGoalState() {
-        return  myStates.stream().filter(ms->ms.getPosition().getRowIndex() == maze.getGoalPosition().getRowIndex() &&
-                                        ms.getPosition().getColumnIndex() == maze.getGoalPosition().getColumnIndex()).findAny().orElse(null);
+        return myStates.stream().filter(ms->ms.getPosition().equals(maze.getGoalPosition())).findAny().orElse(null);
     }
 
     @Override
@@ -36,11 +35,6 @@ public class SearchableMaze implements ISearchable {
         return GetAllNeighbors(state);
 
         //TODO: add diagonals!!!
-
-        /**
-        ArrayList<MazeState> myPossibleStates = GetAllNeighbors(state);
-        return myPossibleStates;
-        */
     }
 
     private ArrayList<MazeState> GetAllNeighbors(MazeState state){
@@ -49,11 +43,9 @@ public class SearchableMaze implements ISearchable {
         for(int i= state.getPosition().getRowIndex()-1; i <= state.getPosition().getRowIndex()+1; i++){
             for(int j= state.getPosition().getColumnIndex()-1; j <= state.getPosition().getColumnIndex()+1; j++) {
                 Position pos = new Position(i,j);
-                if(maze.isPartOfThePath(pos.getRowIndex(), pos.getColumnIndex()) &&
-                        !(pos.getRowIndex() == state.getPosition().getRowIndex() && pos.getColumnIndex() == state.getPosition().getColumnIndex()))
+                if(maze.isPartOfThePath(pos.getRowIndex(), pos.getColumnIndex()) && !pos.equals(state.getPosition()))
                 {
-                    MazeState m = myStates.stream().filter(ms->ms.getPosition().getRowIndex() == pos.getRowIndex() &&
-                                                            ms.getPosition().getColumnIndex() == pos.getColumnIndex()).findAny().orElse(null);
+                    MazeState m = myStates.stream().filter(ms->ms.getPosition().equals(pos)).findAny().orElse(null);
                     myList.add(m);
                 }
             }

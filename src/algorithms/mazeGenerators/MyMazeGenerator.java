@@ -52,9 +52,8 @@ public class MyMazeGenerator extends AMazeGenerator {
      */
     private Maze Prim(Maze myMaze){
         FillGridWithWalls(myMaze); // 1.
-        ArrayList<Position> walls = new ArrayList<>();  // 1.
         myMaze.setStartPosition(GetRandomCellOnEdge(myMaze.getRows(), myMaze.getCols())); // 2.
-        walls.addAll(myMaze.getStartPosition().getWallNeighbors(myMaze)); // 2.
+        ArrayList<Position> walls = new ArrayList<>(myMaze.getStartPosition().getWallNeighbors(myMaze)); // 1. + 2.
 
         Position currentWall;
         Random rand = new Random();

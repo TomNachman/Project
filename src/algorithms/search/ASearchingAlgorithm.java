@@ -6,6 +6,7 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
 
     public ASearchingAlgorithm(String name) {
         this.name = name;
+        this.numberOfNodesEvaluated = 0;
     }
 
     @Override
