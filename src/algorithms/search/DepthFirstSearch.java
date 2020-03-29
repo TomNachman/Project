@@ -2,6 +2,7 @@ package algorithms.search;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Stack;
 
 public class DepthFirstSearch extends ASearchingAlgorithm {
@@ -15,35 +16,39 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
     @Override
     public Solution solve(ISearchable iSearchable) {
         Stack <MazeState> stack = new Stack<>();
-        //ArrayList<String> visitedCells = new ArrayList<>();
-        HashMap<String, Boolean> visited = new HashMap<>();
+        HashSet<String> visitedCells = new HashSet<>();
+        //HashMap<String, Boolean> visited = new HashMap<>();
         ArrayList<MazeState> neighbors;
 
         // first StartState
-        //iSearchable.getStartState().setVisited(true);
 
-        //visitedCells.add(iSearchable.getStartState().toString());
-        visited.put(iSearchable.getStartState().toString(), true);
+        visitedCells.add(iSearchable.getStartState().toString());
+        //visited.put(iSearchable.getStartState().toString(), true);
         iSearchable.getStartState().setPrev(iSearchable.getStartState());
         stack.add(iSearchable.getStartState());
 
         while (!stack.empty()){
             MazeState currMazeState = stack.pop();
+            if(currMazeState.getPosition() == null) System.out.println(String.format(
+                    "currMazeState is Fuck us, his prev is: %s",currMazeState.getPrev().getPosition()));
+            if(iSearchable.getGoalState() == null) System.out.println(String.format(
+                    "GoalPosition is Fuck us, start Position: %s", iSearchable.getStartState().getPosition()));
+            if(iSearchable.getGoalState().getPosition() == null) System.out.println(
+                    "GoalPosition.getPosition is Fuck us, his prev is: ");
             if(currMazeState.getPosition().equals(iSearchable.getGoalState().getPosition())){
-                //System.out.println(String.format("number of Whites: %d", iSearchable.getWhites()));
                 return new Solution(iSearchable.getStartState(), currMazeState);
             }
-            //if(!visitedCells.contains(currMazeState.toString())){
-            //   visitedCells.add(currMazeState.toString());
-            if(!visited.containsKey(currMazeState.toString())){
-                visited.put(currMazeState.toString(), true);
+            if(!visitedCells.contains(currMazeState.toString())){
+               visitedCells.add(currMazeState.toString());
+            //if(!visited.containsKey(currMazeState.toString())){
+            //   visited.put(currMazeState.toString(), true);
 
                 this.numberOfNodesEvaluated++;
             }
             neighbors = iSearchable.getAllPossibleStates(currMazeState);
             for (MazeState a : neighbors) {
-                //if(!visitedCells.contains(a.toString()))
-                if(!visited.containsKey(a.toString()))
+                if(!visitedCells.contains(a.toString()))
+                //if(!visited.containsKey(a.toString()))
                     stack.push(a);
 
                 if(a.getPrev()==null){

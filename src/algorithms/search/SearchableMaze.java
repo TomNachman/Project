@@ -83,22 +83,22 @@ public class SearchableMaze implements ISearchable {
             boolRight = true;
             myList.add(new MazeState(row, col +1));
         }
-
+        /**
         // UpRight
         if(maze.isPartOfThePath(row-1, col+1) && (boolUp||boolRight)) {
             myList.add(new MazeState(row-1, col+1));
-        }
+        }*/
 
         // Down
         if(maze.isPartOfThePath(row+1, col)) {
             boolDown = true;
             myList.add(new MazeState(row + 1, col));
         }
-
+        /**
         // DownRight
         if(maze.isPartOfThePath(row+1, col+1) && (boolDown||boolRight)) {
             myList.add(new MazeState(row+1, col+1));
-        }
+        }*/
 
         // Left
         if(maze.isPartOfThePath(row, col-1)) {
@@ -106,6 +106,7 @@ public class SearchableMaze implements ISearchable {
             myList.add(new MazeState(row , col-1));
         }
 
+        /**
         // DownLeft
         if(maze.isPartOfThePath(row+1, col-1) && (boolDown||boolLeft)) {
             myList.add(new MazeState(row+1, col-1));
@@ -115,6 +116,7 @@ public class SearchableMaze implements ISearchable {
         if(maze.isPartOfThePath(row-1, col-1) && (boolUp||boolLeft)) {
             myList.add(new MazeState(row-1, col-1));
         }
+         */
         return myList;
     }
 }

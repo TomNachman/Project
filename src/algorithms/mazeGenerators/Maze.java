@@ -9,6 +9,8 @@ public class Maze {
     private int cols;
     private Position startPosition;
     private Position goalPosition;
+    private int changeGoal = 0;
+
 
     /**
      * Maze Constructor: initiate the rows, cols and myMaze
@@ -69,7 +71,14 @@ public class Maze {
     public void setGoalPosition(Position goal){
         if (validGoalPosition(goal) && GraterDistance(goal))
             this.goalPosition = goal;
+            this.changeGoal ++;
     }
+
+
+    public int getChangeGoal() {
+        return changeGoal;
+    }
+
 
     /**
      * Checks if a given Position 'p' valid - not in the same edge as the startPosition
@@ -77,12 +86,10 @@ public class Maze {
      * @return true - if the position is fix to be a goalPosition
      */
     private boolean validGoalPosition(Position p){
-        if((getStartPosition().getRowIndex()==0 && p.getRowIndex()==0) ||
-           (getStartPosition().getRowIndex()==getRows()-1 && p.getRowIndex()==getRows()-1) ||
-           (getStartPosition().getColumnIndex()==0 && p.getColumnIndex()==0) ||
-           (getStartPosition().getColumnIndex()==getCols()-1 && p.getColumnIndex()==getCols()-1))
-            {return false;}
-        else return true;
+        return !((getStartPosition().getRowIndex()==0 && p.getRowIndex()==0) ||
+                (getStartPosition().getRowIndex()==getRows()-1 && p.getRowIndex()==getRows()-1) ||
+                (getStartPosition().getColumnIndex()==0 && p.getColumnIndex()==0) ||
+                (getStartPosition().getColumnIndex()==getCols()-1 && p.getColumnIndex()==getCols()-1));
     }
 
     /**
@@ -166,7 +173,10 @@ public class Maze {
      * Print the Maze to the command
      */
     public void print(){
-        if(this.getGoalPosition()==null) {goalPosition = new Position(getRows()-1, getCols()-1);}
+        if(this.getGoalPosition()==null) {
+            System.out.println("Default Goal Position");
+            goalPosition = new Position(getRows()-1, getCols()-1);
+        }
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.cols; j++) {
                 if(i == startPosition.getRowIndex()&& j == startPosition.getColumnIndex()){

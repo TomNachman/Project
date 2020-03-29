@@ -31,10 +31,15 @@ public class MyMazeGenerator extends AMazeGenerator {
      */
     private Position GetRandomCellOnEdge(int row, int col){
         Random rand = new Random();
-        int myRow = rand.nextInt(row); //0-49
-        int myCol = ((int)Math.round(Math.random()))*(col-1); // 0 or 49
-        if (myRow==0 || myRow==row-1){
-            myCol = rand.nextInt(col);
+        int myRow;
+        int myCol;
+        while(true) {
+            myRow = rand.nextInt(row); //0 to range-1
+            myCol = ((int) Math.round(Math.random())) * (col - 1); // 0 *or* range-1
+            if (myRow == 0 || myRow == row - 1) {
+                myCol = rand.nextInt(col);
+            }
+            if(myRow!=row-1 || myCol!=col-1) break;
         }
         return new Position(myRow, myCol);
     }
@@ -65,9 +70,9 @@ public class MyMazeGenerator extends AMazeGenerator {
             if(OnlyOneNeighborVisited(myMaze,currentWall)){ // 3.1
                 myMaze.MakePath(currentWall); //3.1.1
                 walls.addAll(currentWall.getWallNeighbors(myMaze)); // 3.1.2
-                if(changeGoal<=2 && myMaze.onEdges(currentWall)) {
+                if(myMaze.getChangeGoal() <=2 && myMaze.onEdges(currentWall)) {
+                    System.out.println("i get in if");
                     myMaze.setGoalPosition(currentWall);
-                    changeGoal++;
                 }
             }
             walls.remove(currentWall);
