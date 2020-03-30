@@ -69,16 +69,10 @@ public class Maze {
      * @param goal - goalPosition to set (only if all condition are true)
      */
     public void setGoalPosition(Position goal){
-        if (validGoalPosition(goal) && GraterDistance(goal))
+        if (validGoalPosition(goal) && GraterDistance(goal)) {
             this.goalPosition = goal;
-            this.changeGoal ++;
+        }
     }
-
-
-    public int getChangeGoal() {
-        return changeGoal;
-    }
-
 
     /**
      * Checks if a given Position 'p' valid - not in the same edge as the startPosition

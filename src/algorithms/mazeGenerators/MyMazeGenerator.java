@@ -70,8 +70,8 @@ public class MyMazeGenerator extends AMazeGenerator {
             if(OnlyOneNeighborVisited(myMaze,currentWall)){ // 3.1
                 myMaze.MakePath(currentWall); //3.1.1
                 walls.addAll(currentWall.getWallNeighbors(myMaze)); // 3.1.2
-                if(myMaze.getChangeGoal() <=2 && myMaze.onEdges(currentWall)) {
-                    System.out.println("i get in if");
+                if(myMaze.getGoalPosition()==null && myMaze.onEdges(currentWall)) {
+                    //System.out.println("i get in if");
                     myMaze.setGoalPosition(currentWall);
                 }
             }
