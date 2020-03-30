@@ -21,6 +21,7 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
         visitedCells.add(iSearchable.getStartState().toString());
         iSearchable.getStartState().setPrev(iSearchable.getStartState());
         stack.add(iSearchable.getStartState());
+        System.out.println(stack.getClass());
 
         while (!stack.empty()) {
             MazeState currMazeState = stack.pop();

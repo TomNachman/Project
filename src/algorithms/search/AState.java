@@ -3,7 +3,7 @@ package algorithms.search;
 import algorithms.mazeGenerators.Position;
 
 public abstract class AState {
-    private int val = 0;
+    protected int val = 0;
     private AState prev;
     private Position myPos;
 
