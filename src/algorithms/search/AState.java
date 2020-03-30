@@ -3,11 +3,9 @@ package algorithms.search;
 import algorithms.mazeGenerators.Position;
 
 public abstract class AState {
-    //private String myName;
-    private int val = -1;
+    private int val = 0;
     private AState prev;
     private Position myPos;
-    private boolean visited = false;
 
     public AState(Position position) {
         this.myPos = position;
@@ -21,22 +19,11 @@ public abstract class AState {
 
     public AState getPrev() {return prev; }
 
-    public boolean isVisited() { return visited;}
+    public void setVal(int val) { this.val = val; }
 
-    public void setVisited(boolean visited) { this.visited = visited;}
-
-    public void setVal(int val) {
-        this.val = val;
-    }
-
-    public void setPrev(AState newPrev) {
-        this.prev = newPrev;
-        //this.setVal(newPrev.getVal()+1);
-    }
+    public void setPrev(AState newPrev) { this.prev = newPrev; }
 
     @Override
-    public String toString() {
-        return myPos.toString();
-    }
+    public String toString() { return myPos.toString(); }
 }
 

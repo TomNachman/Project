@@ -5,13 +5,18 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class BreadthFirstSearch extends ASearchingAlgorithm {
+    protected int numberOfNodesEvaluated = 0;
 
-    private int numberOfNodesEvaluated = 0;
-
-
+    // Empty Constructor
     public BreadthFirstSearch() {
         super(BreadthFirstSearch.class.getSimpleName());
     }
+
+    // name Based Constructor for Extend's classes
+    public BreadthFirstSearch(String name) {
+        super(name);
+    }
+
 
     @Override
     public Solution solve(ISearchable iSearchable) {
