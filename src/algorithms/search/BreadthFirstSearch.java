@@ -2,6 +2,7 @@ package algorithms.search;
 
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class BreadthFirstSearch extends ASearchingAlgorithm {
@@ -21,6 +22,18 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
     @Override
     public Solution solve(ISearchable iSearchable) {
         Queue<MazeState> queue = new LinkedList<>();
+        System.out.println("BFS");
+        return SolutionHelper(iSearchable, queue);
+    }
+
+    protected Solution solve(ISearchable iSearchable, Queue<MazeState> queue) {
+        System.out.println("Best-FS");
+        return SolutionHelper(iSearchable, queue);
+    }
+
+    protected Solution SolutionHelper(ISearchable iSearchable,  Queue<MazeState> queue)
+    {
+        boolean flag = false;
         HashSet<String> visitedCells = new HashSet<>();
         queue.add(iSearchable.getStartState());
         visitedCells.add(iSearchable.getStartState().toString());
@@ -37,6 +50,12 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
                     this.numberOfNodesEvaluated++;
                 }
                 if (a.getPrev() == null) a.setPrev(curr);
+            }
+            if(!flag) {
+                for (MazeState a:queue){
+                    System.out.println(String.format("element: %s, Value:%d ",a.getPosition(), a.getVal()));
+                }
+                flag = true;
             }
         }
         return new Solution(iSearchable.getStartState(), iSearchable.getGoalState());

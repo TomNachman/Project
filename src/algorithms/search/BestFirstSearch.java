@@ -4,20 +4,15 @@ import java.util.PriorityQueue;
 
 public class BestFirstSearch extends BreadthFirstSearch {
 
-    private PriorityQueue<AState> pariorityQ;
+    private PriorityQueue<MazeState> pariorityQ;
 
     public BestFirstSearch(){
         super(BestFirstSearch.class.getSimpleName());
-        pariorityQ = new PriorityQueue<AState>(new Comparator<AState>() {
-            @Override
-            public int compare(AState o1, AState o2) {
-                return (int)(o1.getVal()-o2.getVal());
-            }
-        });
+        pariorityQ = new PriorityQueue<MazeState>((o1, o2) -> (int)(o1.getVal()-o2.getVal()));
     }
 
     @Override
-    public Solution solve(ISearchable iSearchable) {return super.solve(iSearchable);
+    public Solution solve(ISearchable iSearchable) {return super.solve(iSearchable, pariorityQ);
     }
 
     @Override

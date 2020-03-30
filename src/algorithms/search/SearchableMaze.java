@@ -12,13 +12,11 @@ public class SearchableMaze implements ISearchable {
 
     @Override
     public MazeState getStartState() {
-        //return myStates.stream().filter(ms->ms.getPosition().equals(maze.getStartPosition())).findAny().orElse(null);
         return new MazeState(maze.getStartPosition());
      }
 
     @Override
     public MazeState getGoalState() {
-        //return myStates.stream().filter(ms->ms.getPosition().equals(maze.getGoalPosition())).findAny().orElse(null);
         return new MazeState(maze.getGoalPosition());
     }
 
@@ -45,22 +43,10 @@ public class SearchableMaze implements ISearchable {
             myList.add(new MazeState(row, col +1));
         }
 
-        // UpRight
-        if(maze.isPartOfThePath(row-1, col+1) && (boolUp||boolRight)) {
-            MazeState tmp = new MazeState(row-1, col+1);
-            //tmp.setVal(1);
-            myList.add(new MazeState(row-1, col+1));
-        }
-
         // Down
         if(maze.isPartOfThePath(row+1, col)) {
             boolDown = true;
             myList.add(new MazeState(row + 1, col));
-        }
-
-        // DownRight
-        if(maze.isPartOfThePath(row+1, col+1) && (boolDown||boolRight)) {
-            myList.add(new MazeState(row+1, col+1));
         }
 
         // Left
@@ -69,14 +55,32 @@ public class SearchableMaze implements ISearchable {
             myList.add(new MazeState(row , col-1));
         }
 
+        // UpRight
+        if(maze.isPartOfThePath(row-1, col+1) && (boolUp||boolRight)) {
+            MazeState tmp = new MazeState(row-1, col+1);
+            tmp.setVal(1);
+            myList.add(tmp);
+        }
+
+        // DownRight
+        if(maze.isPartOfThePath(row+1, col+1) && (boolDown||boolRight)) {
+            MazeState tmp = new MazeState(row+1, col+1);
+            tmp.setVal(1);
+            myList.add(tmp);
+        }
+
         // DownLeft
         if(maze.isPartOfThePath(row+1, col-1) && (boolDown||boolLeft)) {
-            myList.add(new MazeState(row+1, col-1));
+            MazeState tmp = new MazeState(row+1, col-1);
+            tmp.setVal(1);
+            myList.add(tmp);
         }
 
         // UpLeft
         if(maze.isPartOfThePath(row-1, col-1) && (boolUp||boolLeft)) {
-            myList.add(new MazeState(row-1, col-1));
+            MazeState tmp = new MazeState(row-1, col-1);
+            tmp.setVal(1);
+            myList.add(tmp);
         }
 
         return myList;
