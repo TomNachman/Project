@@ -29,6 +29,14 @@ public class Position {
         return y;
     }
 
+    public void setRow(int x) {
+        this.x = x;
+    }
+
+    public void setCol(int y) {
+        this.y = y;
+    }
+
     public Collection<Position> getWallNeighbors(Maze maze){
         ArrayList<Position> myNeighbors = new ArrayList<Position>();
         if(maze.isWall(getRowIndex()+1, getColumnIndex())) myNeighbors.add(new Position(getRowIndex()+1, getColumnIndex()));
