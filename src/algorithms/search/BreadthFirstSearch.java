@@ -25,10 +25,6 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
             if(curr.getPosition().equals(iSearchable.getGoalState().getPosition())){
                 return new Solution(iSearchable.getStartState(), curr);
             }
-            /**if (!visitedCells.contains(curr.toString())) {
-                visitedCells.add(curr.toString());
-                this.numberOfNodesEvaluated++;
-            }*/
             for (MazeState a : iSearchable.getAllPossibleStates(curr)){
                 if (!visitedCells.contains(a.toString())) {
                     visitedCells.add(a.toString());
