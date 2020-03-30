@@ -1,34 +1,25 @@
 package algorithms.search;
-
 import algorithms.mazeGenerators.Maze;
-import algorithms.mazeGenerators.Position;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SearchableMaze implements ISearchable {
     private Maze maze;
-    private List<MazeState> myStates = new ArrayList<MazeState>();
 
     public SearchableMaze(Maze maze) {
         this.maze = maze;
-
-        for(int i = 0; i<maze.getRows();i++){
-            for(int j=0; j<maze.getCols();j++){
-                if(maze.isPartOfThePath(i,j))
-                    myStates.add(new MazeState(new Position(i,j)));
-            }
-        }
     }
 
     @Override
     public MazeState getStartState() {
-        return myStates.stream().filter(ms->ms.getPosition().equals(maze.getStartPosition())).findAny().orElse(null);
+        //return myStates.stream().filter(ms->ms.getPosition().equals(maze.getStartPosition())).findAny().orElse(null);
+        return new MazeState(maze.getStartPosition());
      }
 
     @Override
     public MazeState getGoalState() {
-        return myStates.stream().filter(ms->ms.getPosition().equals(maze.getGoalPosition())).findAny().orElse(null);
+        //return myStates.stream().filter(ms->ms.getPosition().equals(maze.getGoalPosition())).findAny().orElse(null);
+        return new MazeState(maze.getGoalPosition());
     }
 
     @Override
@@ -56,6 +47,8 @@ public class SearchableMaze implements ISearchable {
 
         // UpRight
         if(maze.isPartOfThePath(row-1, col+1) && (boolUp||boolRight)) {
+            MazeState tmp = new MazeState(row-1, col+1);
+            //tmp.setVal(1);
             myList.add(new MazeState(row-1, col+1));
         }
 
@@ -88,9 +81,4 @@ public class SearchableMaze implements ISearchable {
 
         return myList;
     }
-
-    public int getWhites(){
-        return myStates.size();
-    }
-
 }

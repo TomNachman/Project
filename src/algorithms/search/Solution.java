@@ -13,7 +13,7 @@ public class Solution {
     public ArrayList<AState> getSolutionPath(){
         ArrayList<AState> mySolution = new ArrayList<AState>();
         AState tmp = this.goalState;
-        while (tmp!=this.startState){
+        while (tmp.getPosition()!=this.startState.getPosition()){
             mySolution.add(0,tmp);
             tmp = tmp.getPrev();
         }
