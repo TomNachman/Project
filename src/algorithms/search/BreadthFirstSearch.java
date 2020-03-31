@@ -40,7 +40,8 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
             }
         }
 
-        return new Solution(iSearchable.getStartState(), iSearchable.getGoalState());
+        //return new Solution(iSearchable.getStartState(), iSearchable.getGoalState());
+        return new Solution();
         // TODO: return empty Solution (Maybe Exception)
     }
 

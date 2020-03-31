@@ -9,10 +9,12 @@ public class Solution {
         this.startState = startState;
         this.goalState = goalState;
     }
+    public Solution() {}
 
     public ArrayList<AState> getSolutionPath(){
         ArrayList<AState> mySolution = new ArrayList<AState>();
         AState tmp = this.goalState;
+        if (this.goalState==null || this.startState==null) return new ArrayList<AState>();
         while (tmp.getPosition()!=this.startState.getPosition()){
             mySolution.add(0,tmp);
             tmp = tmp.getPrev();
