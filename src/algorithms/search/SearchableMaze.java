@@ -34,52 +34,59 @@ public class SearchableMaze implements ISearchable {
         // Up
         if(maze.isPartOfThePath(row-1, col)) {
             boolUp = true;
-            myList.add(new MazeState(row-1, col));
-        }
+            MazeState tmp = new MazeState(row-1, col);
+            tmp.setVal(10);
+            myList.add(tmp);        }
 
         // Right
         if(maze.isPartOfThePath(row, col+1)) {
             boolRight = true;
-            myList.add(new MazeState(row, col +1));
+            MazeState tmp = new MazeState(row, col+1);
+            tmp.setVal(10);
+            myList.add(tmp);
         }
 
         // Down
         if(maze.isPartOfThePath(row+1, col)) {
             boolDown = true;
-            myList.add(new MazeState(row + 1, col));
+            MazeState tmp = new MazeState(row+1, col);
+            tmp.setVal(10);
+            myList.add(tmp);
         }
 
         // Left
         if(maze.isPartOfThePath(row, col-1)) {
             boolLeft = true;
-            myList.add(new MazeState(row , col-1));
+            MazeState tmp = new MazeState(row, col-1);
+            tmp.setVal(10);
+            myList.add(tmp);
         }
 
         // UpRight
         if(maze.isPartOfThePath(row-1, col+1) && (boolUp||boolRight)) {
             MazeState tmp = new MazeState(row-1, col+1);
-            tmp.setVal(1);
+            tmp.setVal(15);
             myList.add(tmp);
         }
 
         // DownRight
         if(maze.isPartOfThePath(row+1, col+1) && (boolDown||boolRight)) {
             MazeState tmp = new MazeState(row+1, col+1);
-            tmp.setVal(1);
+            tmp.setVal(15);
             myList.add(tmp);
         }
 
         // DownLeft
         if(maze.isPartOfThePath(row+1, col-1) && (boolDown||boolLeft)) {
             MazeState tmp = new MazeState(row+1, col-1);
-            tmp.setVal(1);
+            tmp.setVal(15);
             myList.add(tmp);
         }
 
         // UpLeft
         if(maze.isPartOfThePath(row-1, col-1) && (boolUp||boolLeft)) {
             MazeState tmp = new MazeState(row-1, col-1);
-            tmp.setVal(1);
+            tmp.setVal(15);
             myList.add(tmp);
         }
 

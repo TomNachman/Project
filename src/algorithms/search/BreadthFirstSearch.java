@@ -27,24 +27,26 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
         visitedCells.add(iSearchable.getStartState().toString());
         iSearchable.getStartState().setPrev(iSearchable.getStartState());
         while(!queue.isEmpty()){
-            MazeState curr = queue.remove();
+            MazeState curr = queue.poll();
             if(curr.getPosition().equals(iSearchable.getGoalState().getPosition())){
                 return new Solution(iSearchable.getStartState(), curr);
             }
             for (MazeState a : iSearchable.getAllPossibleStates(curr)){
                 if (!visitedCells.contains(a.toString())) {
                     visitedCells.add(a.toString());
+                    a.setVal(a.getVal()+curr.getVal());
                     queue.add(a);
                     this.numberOfNodesEvaluated++;
                 }
                 if (a.getPrev() == null) a.setPrev(curr);
             }
             if(!flag) {
-                if (queue.getClass().toString().compareTo("class java.util.PriorityQueue")==0) {
+                if (queue.getClass().toString().compareTo("class java.util.PriorityQueue")==1) {
                     PriorityQueue<MazeState> PQCopy = new PriorityQueue<MazeState>();
                     PQCopy = (PriorityQueue<MazeState>) queue;
-                    while (!PQCopy.isEmpty())
-                        System.out.println(String.format("Pos :%s",PQCopy.poll().getPosition().toString()));
+                    while (!PQCopy.isEmpty()) {
+                        System.out.println(String.format("Pos :%s", PQCopy.remove().getPosition().toString()));
+                    }
                     flag = true;
                 }
             }

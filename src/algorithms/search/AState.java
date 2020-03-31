@@ -2,6 +2,8 @@ package algorithms.search;
 
 import algorithms.mazeGenerators.Position;
 
+import java.util.Comparator;
+
 public abstract class AState {
     protected int val = 0;
     private AState prev;

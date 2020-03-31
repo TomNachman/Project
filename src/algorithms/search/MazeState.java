@@ -19,4 +19,6 @@ public class MazeState extends AState{
     public int getColIndex(){
         return this.getPosition().getColumnIndex();
     }
+
+
 }

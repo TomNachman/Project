@@ -16,7 +16,7 @@ import java.util.Queue;
 public class RunSearchOnMaze {
     public static void main(String[] args) {
         IMazeGenerator mg = new MyMazeGenerator();
-        Maze maze = mg.generate(5, 5);
+        Maze maze = mg.generate(100, 100);
         SearchableMaze searchableMaze = new SearchableMaze(maze);
         maze.print();
 
