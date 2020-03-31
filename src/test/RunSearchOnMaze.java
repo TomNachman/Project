@@ -16,9 +16,9 @@ import java.util.Queue;
 public class RunSearchOnMaze {
     public static void main(String[] args) {
         IMazeGenerator mg = new MyMazeGenerator();
-        Maze maze = mg.generate(100, 100);
+        Maze maze = mg.generate(10, 10);
         SearchableMaze searchableMaze = new SearchableMaze(maze);
-        maze.print();
+        //maze.print();
 
         solveProblem(searchableMaze, new BreadthFirstSearch());
         //solveProblem(searchableMaze, new DepthFirstSearch());
@@ -30,12 +30,14 @@ public class RunSearchOnMaze {
         Solution solution = searcher.solve(domain);
         System.out.println(String.format("'%s' algorithm - nodes evaluated: %s", searcher.getName(), searcher.getNumberOfNodesEvaluated()));
         //Printing Solution Path
-        System.out.println("Solution path:");
+        //System.out.println("Solution path:");
         ArrayList<AState> solutionPath = solution.getSolutionPath();
+        System.out.println(String.format("Number Of Steps: %d",solutionPath.size()));
+
+        /**
         for (int i = 0; i < solutionPath.size(); i++) {
             System.out.println(String.format("%s. %s",i,solutionPath.get(i)));
         }
+        */
     }
-
-
 }

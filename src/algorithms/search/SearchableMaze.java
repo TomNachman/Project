@@ -34,32 +34,25 @@ public class SearchableMaze implements ISearchable {
         // Up
         if(maze.isPartOfThePath(row-1, col)) {
             boolUp = true;
-            MazeState tmp = new MazeState(row-1, col);
-            tmp.setVal(10);
-            myList.add(tmp);        }
+            myList.add(new MazeState(row - 1, col));
+        }
 
         // Right
         if(maze.isPartOfThePath(row, col+1)) {
             boolRight = true;
-            MazeState tmp = new MazeState(row, col+1);
-            tmp.setVal(10);
-            myList.add(tmp);
+            myList.add(new MazeState(row, col+1));
         }
 
         // Down
         if(maze.isPartOfThePath(row+1, col)) {
             boolDown = true;
-            MazeState tmp = new MazeState(row+1, col);
-            tmp.setVal(10);
-            myList.add(tmp);
+            myList.add(new MazeState(row+1, col));
         }
 
         // Left
         if(maze.isPartOfThePath(row, col-1)) {
             boolLeft = true;
-            MazeState tmp = new MazeState(row, col-1);
-            tmp.setVal(10);
-            myList.add(tmp);
+            myList.add(new MazeState(row, col-1));
         }
 
         // UpRight

@@ -5,7 +5,7 @@ import algorithms.mazeGenerators.Position;
 import java.util.Comparator;
 
 public abstract class AState {
-    protected int val = 0;
+    protected int val = 10;
     private AState prev;
     private Position myPos;
 
