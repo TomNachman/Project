@@ -10,5 +10,6 @@ class JUnitTestingBestFirstSearch {
     public void NullToBestFS() {
         ISearchingAlgorithm BestFS = new BestFirstSearch();
         BestFS.solve(null);
+        assertNull(BestFS.solve(null));
     }
 }
