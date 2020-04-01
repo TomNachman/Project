@@ -9,6 +9,9 @@ public abstract class AState {
     private AState prev;
     private Position myPos;
 
+    /**
+    Parameter Constructor
+     */
     public AState(Position position) {
         this.myPos = position;
     }

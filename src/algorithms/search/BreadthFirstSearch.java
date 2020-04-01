@@ -20,6 +20,7 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
     }
     @Override
     public Solution solve(ISearchable iSearchable) {
+        if (iSearchable == null) return null;
         HashSet<String> visitedCells = new HashSet<>();
         queue.add(iSearchable.getStartState());
         visitedCells.add(iSearchable.getStartState().toString());

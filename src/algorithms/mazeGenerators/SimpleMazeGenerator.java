@@ -26,6 +26,7 @@ public class SimpleMazeGenerator extends AMazeGenerator {
                 mySimpleMaze.MakeWall(i,random.nextInt(cols-1));
             }
         }
+        //TODO: set random positin or it is ok like this?
         mySimpleMaze.setStartPosition(new Position(0,0));
         mySimpleMaze.setGoalPosition(new Position(rows-1,cols-1));
         return  mySimpleMaze;

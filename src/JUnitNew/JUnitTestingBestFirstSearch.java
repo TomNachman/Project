@@ -44,14 +44,11 @@ class JUnitTestingBestFirstSearch {
         ISearchingAlgorithm Best = new BestFirstSearch();
         IMazeGenerator mg = new EmptyMazeGenerator();
         Maze maze = mg.generate(5,5);
-        maze.MakeWall(4,3);
-        maze.MakeWall(3,4);
+        maze.MakeWall(4,3); //Blocking the End
+        maze.MakeWall(3,4); //Blocking the End
         SearchableMaze searchableMaze = new SearchableMaze(maze);
         Solution solution = Best.solve(searchableMaze);
         Solution EmptySolution = new Solution();
         Assertions.assertEquals(EmptySolution.getSolutionPath().isEmpty(),solution.getSolutionPath().isEmpty());
     }
-
-
-
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * MyMazeGenerator - Class of Maze Based on Smart Algorithm.
+ * MyMazeGenerator - Class of Maze Based on Smart Algorithm(Prim).
  * @author Asaf Salomon and Tom Nachman
  */
 public class MyMazeGenerator extends AMazeGenerator {
@@ -46,7 +46,7 @@ public class MyMazeGenerator extends AMazeGenerator {
 
     /**
      * This algorithm is a randomized version of Prim's algorithm:
-     *   1. Start with a grid full of walls. (done)
+     *   1. Start with a grid full of walls.
      *   2. Pick a cell, mark it as part of the maze. Add the walls of the cell to the wall list.
      *   3. While there are walls in the list:
      *      3.1 Pick a random wall from the list. If only one of the two cells that the wall divides is visited, then:
@@ -71,7 +71,6 @@ public class MyMazeGenerator extends AMazeGenerator {
                 myMaze.MakePath(currentWall); //3.1.1
                 walls.addAll(currentWall.getWallNeighbors(myMaze)); // 3.1.2
                 if(myMaze.onEdges(currentWall)) {
-                    //System.out.println("i get in if");
                     myMaze.setGoalPosition(currentWall);
                 }
             }

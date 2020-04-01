@@ -20,6 +20,12 @@ public class SearchableMaze implements ISearchable {
         return new MazeState(maze.getGoalPosition());
     }
 
+    /**
+     * The Function receives a given state and returns a ArrayList of all possible states around the
+     * given state(every direction including diagonal)
+     * @param state
+     * @return
+     */
     @Override
     public ArrayList<MazeState> getAllPossibleStates(MazeState state) {
         ArrayList<MazeState> myList = new ArrayList<MazeState>();

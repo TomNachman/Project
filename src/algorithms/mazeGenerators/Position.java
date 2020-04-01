@@ -37,6 +37,12 @@ public class Position {
         this.y = y;
     }
 
+    /**
+     * The Function returns a collection of al the walls surrounding a position
+     * this function helps to implement stage 3.1.2 of Prim Algorithm
+     * @param maze
+     * @return
+     */
     public Collection<Position> getWallNeighbors(Maze maze){
         ArrayList<Position> myNeighbors = new ArrayList<Position>();
         if(maze.isWall(getRowIndex()+1, getColumnIndex())) myNeighbors.add(new Position(getRowIndex()+1, getColumnIndex()));
@@ -46,6 +52,11 @@ public class Position {
         return myNeighbors;
     }
 
+    /**
+     * equal function between two position
+     * @param o
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -2,7 +2,6 @@ package algorithms.search;
 
 public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
     private String name;
-    private int numberOfNodesEvaluated;
 
     public ASearchingAlgorithm(String name) {
         this.name = name;
