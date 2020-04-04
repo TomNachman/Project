@@ -7,7 +7,6 @@ import algorithms.mazeGenerators.*;
  */
 public class RunMazeGenerator {
     public static void main(String[] args) {
-        testMazeGenerator(new EmptyMazeGenerator());
         testMazeGenerator(new SimpleMazeGenerator());
         testMazeGenerator(new MyMazeGenerator());
     }

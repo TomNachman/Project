@@ -1,30 +1,23 @@
 package test;
 
-import algorithms.mazeGenerators.EmptyMazeGenerator;
 import algorithms.mazeGenerators.IMazeGenerator;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
 import algorithms.search.*;
 
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.PriorityQueue;
-import java.util.Queue;
 
 /**
  * Created by Aviadjo on 3/22/2017.
  */
 public class RunSearchOnMaze {
     public static void main(String[] args) {
-        //IMazeGenerator mg = new MyMazeGenerator();
-        IMazeGenerator mg = new EmptyMazeGenerator();
-
-        Maze maze = mg.generate(5, 5);
+        IMazeGenerator mg = new MyMazeGenerator();
+        Maze maze = mg.generate(30, 30);
         SearchableMaze searchableMaze = new SearchableMaze(maze);
-        maze.print();
 
         solveProblem(searchableMaze, new BreadthFirstSearch());
-        //solveProblem(searchableMaze, new DepthFirstSearch());
+        solveProblem(searchableMaze, new DepthFirstSearch());
         solveProblem(searchableMaze, new BestFirstSearch());
     }
 
@@ -35,12 +28,8 @@ public class RunSearchOnMaze {
         //Printing Solution Path
         System.out.println("Solution path:");
         ArrayList<AState> solutionPath = solution.getSolutionPath();
-        System.out.println(String.format("Number Of Steps: %d",solutionPath.size()));
-
-
         for (int i = 0; i < solutionPath.size(); i++) {
             System.out.println(String.format("%s. %s",i,solutionPath.get(i)));
         }
-
     }
 }

@@ -1,4 +1,4 @@
-package JUnitNew;
+package JUnit;
 
 import algorithms.mazeGenerators.EmptyMazeGenerator;
 import algorithms.mazeGenerators.IMazeGenerator;
