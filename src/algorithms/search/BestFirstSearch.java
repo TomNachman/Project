@@ -1,28 +1,24 @@
 package algorithms.search;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.PriorityQueue;
+
+/**
+ * BestFirstSearch Class: This class uses the 'BFS algorithm' to solve the problem.
+ *                        It Implements the algorithm data structure as a Priority Queue based on value comparator
+ *                        (the lower the value is -> the highest priority it's get).
+ */
 
 public class BestFirstSearch extends BreadthFirstSearch {
 
-    /**
-     BestFirstSearch Uses the BFS algorithm to solve the maze, the only difference is the here
-     we are using Priority Queue based on value comparator instead of a normal queue to
-     Implement the solve function
-     */
+    /** BestFirstSearch Constructor */
     public BestFirstSearch(){
         super(BestFirstSearch.class.getSimpleName());
-        visitedCells = new HashSet<>();
-        queue = new PriorityQueue<MazeState>((Comparator.comparingInt(AState::getVal)));
+        queue = new PriorityQueue<AState>((Comparator.comparingInt(AState::getVal)));
     }
 
+    /** @return the solution of the maze */
     @Override
-    public Solution solve(ISearchable iSearchable) {return super.solve(iSearchable);
+    public Solution solve(ISearchable iSearchable) {
+        return super.solve(iSearchable);
     }
-
-    /**
-     * @return The Number of nodes the Alg Evaluated during the run
-     */
-    @Override
-    public int getNumberOfNodesEvaluated() {return numberOfNodesEvaluated;}
 }

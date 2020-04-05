@@ -1,45 +1,35 @@
 package algorithms.search;
 import algorithms.mazeGenerators.Maze;
-
 import java.util.ArrayList;
 
+/**
+ * SearchableMaze Class: Make a Maze Searchable
+ */
 public class SearchableMaze implements ISearchable {
     private Maze maze;
 
-    public SearchableMaze(Maze maze) {
-        this.maze = maze;
-    }
-    /**
-     * Returns The Start State of the Maze
-     */
+    /** Searchable Maze single Constructor */
+    public SearchableMaze(Maze maze) { this.maze = maze; }
+
+    /** Returns The Start State of the Maze */
     @Override
-    public MazeState getStartState() {
-        return new MazeState(maze.getStartPosition());
-     }
-    /**
-     * Returns The Goal State of the Maze
-     */
+    public AState getStartState() { return new MazeState(maze.getStartPosition()); }
+
+    /** Returns The Goal State of the Maze */
     @Override
-    public MazeState getGoalState() {
-        return new MazeState(maze.getGoalPosition());
-    }
+    public AState getGoalState() { return new MazeState(maze.getGoalPosition()); }
 
     /**
-     * The Function receives a given state and returns a ArrayList of all possible states around the
-     * given state(every direction including diagonal)
-     * @param state
-     * @return
+     * The Function receives a state and returns a ArrayList of all Neighbors states (including diagonals).
+     * @param state - The Current State We Want To Check
+     * @return All The Neighbors States
      */
     @Override
-    public ArrayList<MazeState> getAllPossibleStates(MazeState state) {
-        ArrayList<MazeState> myList = new ArrayList<MazeState>();
-        int row = state.getRowIndex();
-        int col = state.getColIndex();
-
-        boolean boolUp = false;
-        boolean boolDown = false;
-        boolean boolRight = false;
-        boolean boolLeft = false;
+    public ArrayList<AState> getAllPossibleStates(AState state) {
+        ArrayList<AState> myList = new ArrayList<AState>();
+        int row = state.getPosition().getRowIndex();
+        int col = state.getPosition().getColumnIndex();
+        boolean boolUp = false, boolDown = false, boolRight = false, boolLeft = false;
 
         // Up
         if(maze.isPartOfThePath(row-1, col)) {
@@ -92,7 +82,6 @@ public class SearchableMaze implements ISearchable {
             tmp.setVal(15);
             myList.add(tmp);
         }
-
         return myList;
     }
 }

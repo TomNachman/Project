@@ -1,24 +1,26 @@
 package algorithms.search;
 import java.util.ArrayList;
 
+/**
+ *
+ */
 public class Solution {
     private AState goalState;
     private AState startState;
 
-    //Parameter Constructor
+    /** Parameters Constructor */
     public Solution(AState startState, AState goalState) {
         this.startState = startState;
         this.goalState = goalState;
     }
 
-    //Empty Constructor
+    /** Empty Constructor - for 'No Solution' */
     public Solution() {}
 
     /**
-     * This Function returns a ArrayList of the solution path
-     * such that each node is a AState Element
-     * The First element is the start position and the last is he Goal position
-     * @return
+     * This Function returns a ArrayList of the solution path, each node is a AState Element
+     * The First element is the start position and the last is the Goal position
+     * @return Solution Path - ArrayList Of The AStates.
      */
     public ArrayList<AState> getSolutionPath(){
         ArrayList<AState> mySolution = new ArrayList<AState>();

@@ -1,25 +1,21 @@
 package algorithms.mazeGenerators;
-
 import java.util.ArrayList;
 import java.util.Random;
 
-/**
- * MyMazeGenerator - Class of Maze Based on Smart Algorithm(Prim).
- * @author Asaf Salomon and Tom Nachman
- */
+/** MyMazeGenerator - Class of Smart Algorithm Maze Based Generator (Prim) */
 public class MyMazeGenerator extends AMazeGenerator {
 
     /**
      * Generates a new Maze according to prim's algorithm
      * @param rows - Num of rows in the maze
      * @param cols - Num of columns in the maze
-     * @return Complete Smart Maze
+     * @return Complete Smart Maze (By Prim Algorithm)
      */
     @Override
     public Maze generate(int rows, int cols) {
         if(rows<=0 || cols <=0) return null;
         Maze myMaze = new Maze(rows, cols);
-        myMaze = Prim(myMaze);
+        Prim(myMaze);
         return myMaze;
     }
 
@@ -31,8 +27,7 @@ public class MyMazeGenerator extends AMazeGenerator {
      */
     private Position GetRandomCellOnEdge(int row, int col){
         Random rand = new Random();
-        int myRow;
-        int myCol;
+        int myRow, myCol;
         while(true) {
             myRow = rand.nextInt(row); //0 to range-1
             myCol = ((int) Math.round(Math.random())) * (col - 1); // 0 *or* range-1
@@ -90,12 +85,11 @@ public class MyMazeGenerator extends AMazeGenerator {
         if (myMaze.isPartOfThePath(PosToCheck.getRowIndex(),PosToCheck.getColumnIndex()-1)) wallCounter++;
         if (myMaze.isPartOfThePath(PosToCheck.getRowIndex()+1,PosToCheck.getColumnIndex())) wallCounter++;
         if (myMaze.isPartOfThePath(PosToCheck.getRowIndex()-1,PosToCheck.getColumnIndex())) wallCounter++;
-        if (wallCounter > 1) return false;
-        return true;
+        return wallCounter <= 1;
     }
 
     /**
-     * filling the whole maze with walls (1's)
+     * Filling the whole maze with walls (1's)
      * @param myMaze
      */
     private void FillGridWithWalls(Maze myMaze){

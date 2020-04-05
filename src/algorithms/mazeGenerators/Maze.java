@@ -1,7 +1,8 @@
 package algorithms.mazeGenerators;
 
 /**
- *
+ *  Class Maze: Represent the Maze itself - A Two Dimensional Array
+ *              Contain: start position, goal position, paths(0's) and walls (1's)
  */
 public class Maze {
     private int [][] myMaze;
@@ -9,11 +10,10 @@ public class Maze {
     private int cols;
     private Position startPosition;
     private Position goalPosition;
-    private int changeGoal = 0;
 
 
     /**
-     * Maze Constructor: initiate the rows, cols and myMaze
+     * Maze Constructor: initiate the rows, cols, myMaze.
      * @param rows - num of rows to initiate in the maze
      * @param cols - num of cols to initiate in the maze
      */
@@ -21,53 +21,37 @@ public class Maze {
         this.cols = cols;
         this.rows = rows;
         this.myMaze = new int[rows][cols];
-        this.startPosition = new Position(0,0);
+        this.startPosition = null;
         this.goalPosition = null;
     }
 
-    /**
-     *
-     * @return num of rows
-     */
+    /** @return num of rows */
     public int getRows() {
         return rows;
     }
 
-    /**
-     *
-     * @return num of columns
-     */
+    /** @return num of columns */
     public int getCols() {
         return cols;
     }
 
-    /**
-     * @return Position - the startPosition in the maze
-     */
+    /** @return Position - the startPosition in the maze */
     public Position getStartPosition() {
         return startPosition;
     }
 
-    /**
-     * @return Position - the GoalPosition in the maze
-     */
+    /** @return Position - the GoalPosition in the maze */
     public Position getGoalPosition() {
         return goalPosition;
     }
 
-    /**
-     *
-     * @param start - startPosition to set
-     */
+    /** @param start - startPosition to set */
     public void setStartPosition(Position start){
         startPosition = start;
         myMaze[start.getRowIndex()][start.getColumnIndex()] = 0;
     }
 
-    /**
-     *
-     * @param goal - goalPosition to set (only if all condition are true)
-     */
+    /** @param goal - goalPosition to set (only if all condition are true) */
     public void setGoalPosition(Position goal){
         if (validGoalPosition(goal) && GraterDistance(goal)) {
             this.goalPosition = goal;
@@ -80,6 +64,7 @@ public class Maze {
      * @return true - if the position is fix to be a goalPosition
      */
     private boolean validGoalPosition(Position p){
+        if (rows==1 || cols ==1) return true;
         return !((getStartPosition().getRowIndex()==0 && p.getRowIndex()==0) ||
                 (getStartPosition().getRowIndex()==getRows()-1 && p.getRowIndex()==getRows()-1) ||
                 (getStartPosition().getColumnIndex()==0 && p.getColumnIndex()==0) ||
@@ -128,11 +113,6 @@ public class Maze {
         return (isValidCell(row,col) && myMaze[row][col] == 0);
     }
 
-    /**
-    public boolean isPartOfThePath (Position pos){
-        return isPartOfThePath(pos.getRowIndex(), pos.getColumnIndex());
-    }
-    */
 
     /**
      * Return if the cell is part of the walls (black cell)
@@ -165,12 +145,9 @@ public class Maze {
         }
     }
 
-    /**
-     * Print the Maze to the command
-     */
+    /** Print the Maze to the command */
     public void print(){
         if(this.getGoalPosition()==null) {
-            System.out.println("Default Goal Position");
             goalPosition = new Position(getRows()-1, getCols()-1);
         }
         for (int i = 0; i < this.rows; i++) {

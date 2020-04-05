@@ -1,62 +1,73 @@
 package algorithms.search;
-
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Queue;
+
+/**
+ *  BreadthFirstSearch Class: This class uses the 'BFS algorithm' to solve the problem.
+ *                            It Implements the algorithm data structure as a Queue.
+ */
 
 public class BreadthFirstSearch extends ASearchingAlgorithm {
     protected int numberOfNodesEvaluated = 0;
+    protected Queue<AState> queue;
 
-    // Empty Constructor
+    /** Empty Constructor */
     public BreadthFirstSearch() {
-        super(BreadthFirstSearch.class.getSimpleName());
+        this(BreadthFirstSearch.class.getSimpleName());
         queue = new LinkedList<>();
+    }
+
+    /** Name based Constructor for Extend's classes */
+    public BreadthFirstSearch(String name) {
+        super(name);
         visitedCells = new HashSet<>();
     }
 
-    // name Based Constructor for Extend's classes
-    public BreadthFirstSearch(String name) {
-        super(name);
-    }
     /**
-     * This Function Solves The Maze according to the BFS Algorithms:
-     1.We start from the Start Position and calls BFS procedure.
-     2.We maintain a queue to store the coordinates of the Maze and initialize it with the Start cell.
-     3.We also maintain a Hashset array of the visited cells.
-     4.We LOOP till queue is not empty
-         4.1. Dequeue front cell from the queue
-         4.2. Return if the destination coordinates have reached.
-         4.3 For each of its four adjacent cells, if thery are not visited yet, we enqueue it in the queue and also
-             adding the, to the visited Cell Hashset.
+     * This Function Solves The Problem according to the BFS Algorithms:
+     1. Start from the start Position and calls BFS procedure.
+     2. Maintain a Queue to store the states and initialize it with the StartPosition.
+     3. Maintain a Hash-set of the visited States.
+     4. Loop till queue is not empty
+        4.1. Dequeue front state from the queue.
+            4.1.1 Return if the goal state have reached.
+        4.2  For each neighbors of the state:
+            4.2.1 if they are not visited yet:
+                   - Enqueue it in the queue.
+                   - Add the State to visited Hash-set.
      */
     @Override
     public Solution solve(ISearchable iSearchable) {
+        // Check null input
         if (iSearchable == null) return null;
+
+        // First State
         queue.add(iSearchable.getStartState());
         visitedCells.add(iSearchable.getStartState().toString());
-        iSearchable.getStartState().setPrev(iSearchable.getStartState());
+
+        // Queue Checking
         while(!queue.isEmpty()){
-            MazeState curr = queue.poll();
-            if(curr.getPosition().equals(iSearchable.getGoalState().getPosition())){
-                return new Solution(iSearchable.getStartState(), curr);
+            AState currState = queue.poll();
+            if(currState.equals(iSearchable.getGoalState())){
+                visitedCells.clear();
+                return new Solution(iSearchable.getStartState(), currState);
             }
-            for (MazeState a : iSearchable.getAllPossibleStates(curr)){
+            for (AState a : iSearchable.getAllPossibleStates(currState)){
                 if (!visitedCells.contains(a.toString())) {
                     visitedCells.add(a.toString());
-                    a.setVal(a.getVal()+curr.getVal());
-                    queue.add(a);
                     this.numberOfNodesEvaluated++;
+                    a.setVal(a.getVal()+currState.getVal());
+                    queue.add(a);
                 }
-                if (a.getPrev() == null) a.setPrev(curr);
+                if (a.getPrev() == null) a.setPrev(currState);
             }
         }
-
+        visitedCells.clear();
         return new Solution();
     }
-    /**
-     * @return The Number of nodes the Alg Evaluated during the run
-     */
+
+    /** @return The Number of nodes the Algorithm evaluated during running */
     @Override
-    public int getNumberOfNodesEvaluated() {
-        return numberOfNodesEvaluated;
-    }
+    public int getNumberOfNodesEvaluated() { return this.numberOfNodesEvaluated; }
 }
