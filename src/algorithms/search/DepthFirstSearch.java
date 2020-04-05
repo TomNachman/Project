@@ -27,7 +27,7 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
             4.1.1 Return if the goal state have reached.
         4.2  For each neighbors of the state:
             4.2.1 if they are not visited yet:
-                - Enqueue it in the Stack.
+                - push it in the Stack.
                 - Add the State to visited Hash-set.
      */
     @Override

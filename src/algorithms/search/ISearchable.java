@@ -8,7 +8,6 @@ import java.util.ArrayList;
  *      2. getStartState
  *      3. getGoalState
  */
-
 public interface ISearchable {
     ArrayList<AState> getAllPossibleStates(AState state);
     AState getStartState();

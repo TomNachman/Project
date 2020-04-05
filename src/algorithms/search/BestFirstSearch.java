@@ -7,7 +7,6 @@ import java.util.PriorityQueue;
  *                        It Implements the algorithm data structure as a Priority Queue based on value comparator
  *                        (the lower the value is -> the highest priority it's get).
  */
-
 public class BestFirstSearch extends BreadthFirstSearch {
 
     /** BestFirstSearch Constructor */

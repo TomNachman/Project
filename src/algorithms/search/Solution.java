@@ -2,7 +2,8 @@ package algorithms.search;
 import java.util.ArrayList;
 
 /**
- *
+ *  Solution Class: contain the solution of a problem (posses the Goal and Start States and can restore the path.
+ *                  if the is no solution will posses empty solution
  */
 public class Solution {
     private AState goalState;

@@ -7,7 +7,6 @@ package algorithms.search;
  *      2. getName
  *      3. getNumberOfNodesEvaluated
  */
-
 public interface ISearchingAlgorithm {
     Solution solve (ISearchable iSearchable);
     String getName();
