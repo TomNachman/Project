@@ -62,7 +62,6 @@ public class MyMazeGenerator extends AMazeGenerator {
 
         Position currentWall;
         Random rand = new Random();
-        int changeGoal = 0;
 
         while (!walls.isEmpty()){ // 3.
             if(walls.size()==1) {currentWall = walls.remove(0);}

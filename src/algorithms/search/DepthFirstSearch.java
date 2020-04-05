@@ -2,7 +2,6 @@ package algorithms.search;
 
 import java.util.HashSet;
 import java.util.Stack;
-import java.util.ArrayList;
 
 public class DepthFirstSearch extends ASearchingAlgorithm {
 
@@ -10,13 +9,13 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
 
     public DepthFirstSearch() {
         super(DepthFirstSearch.class.getSimpleName());
+        visitedCells = new HashSet<>();
+        stack = new Stack<>();
     }
 
     @Override
     public Solution solve(ISearchable iSearchable) {
-        Stack<MazeState> stack = new Stack<>();
-        HashSet<String> visitedCells = new HashSet<>();
-
+        if (iSearchable == null) return null;
         // first StartState
         visitedCells.add(iSearchable.getStartState().toString());
         iSearchable.getStartState().setPrev(iSearchable.getStartState());
@@ -41,10 +40,12 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
                 if (a.getPrev() == null) a.setPrev(currMazeState);
             }
         }
-        // TODO:  we need to Throw an Exception here - There is no solution to the maze!
-        return new Solution(iSearchable.getStartState(), iSearchable.getGoalState());
+        return new Solution();
     }
 
+    /**
+     * @return The Number of nodes the Alg Evaluated during the run
+     */
     @Override
     public int getNumberOfNodesEvaluated() { return this.numberOfNodesEvaluated;}
 }

@@ -21,18 +21,31 @@ public class Position {
         return String.format("{%d,%d}",x,y);
     }
 
+    /**
+     * Returns The Row index
+     * @return
+     */
     public int getRowIndex() {
         return x;
     }
-
+    /**
+     * Returns The Column index
+     * @return
+     */
     public int getColumnIndex() {
         return y;
     }
-
+    /**
+     * Set The Row index
+     * @return
+     */
     public void setRow(int x) {
         this.x = x;
     }
-
+    /**
+     *Set The Column index
+     * @return
+     */
     public void setCol(int y) {
         this.y = y;
     }
@@ -53,7 +66,7 @@ public class Position {
     }
 
     /**
-     * equal function between two position
+     * equal function between two position based on the position coordinates
      * @param o
      * @return
      */

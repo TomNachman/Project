@@ -1,5 +1,6 @@
 package algorithms.search;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.PriorityQueue;
 
 public class BestFirstSearch extends BreadthFirstSearch {
@@ -11,6 +12,7 @@ public class BestFirstSearch extends BreadthFirstSearch {
      */
     public BestFirstSearch(){
         super(BestFirstSearch.class.getSimpleName());
+        visitedCells = new HashSet<>();
         queue = new PriorityQueue<MazeState>((Comparator.comparingInt(AState::getVal)));
     }
 
@@ -18,6 +20,9 @@ public class BestFirstSearch extends BreadthFirstSearch {
     public Solution solve(ISearchable iSearchable) {return super.solve(iSearchable);
     }
 
+    /**
+     * @return The Number of nodes the Alg Evaluated during the run
+     */
     @Override
     public int getNumberOfNodesEvaluated() {return numberOfNodesEvaluated;}
 }

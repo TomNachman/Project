@@ -9,12 +9,16 @@ public class SearchableMaze implements ISearchable {
     public SearchableMaze(Maze maze) {
         this.maze = maze;
     }
-
+    /**
+     * Returns The Start State of the Maze
+     */
     @Override
     public MazeState getStartState() {
         return new MazeState(maze.getStartPosition());
      }
-
+    /**
+     * Returns The Goal State of the Maze
+     */
     @Override
     public MazeState getGoalState() {
         return new MazeState(maze.getGoalPosition());
