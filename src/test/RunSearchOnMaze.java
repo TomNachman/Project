@@ -14,10 +14,8 @@ import java.util.ArrayList;
 public class RunSearchOnMaze {
     public static void main(String[] args) {
         IMazeGenerator mg = new MyMazeGenerator();
-        //IMazeGenerator mg = new SimpleMazeGenerator();
-        Maze maze = mg.generate(10, 10);
+        Maze maze = mg.generate(30, 30);
         SearchableMaze searchableMaze = new SearchableMaze(maze);
-        //maze.print();
 
         solveProblem(searchableMaze, new BreadthFirstSearch());
         solveProblem(searchableMaze, new DepthFirstSearch());
