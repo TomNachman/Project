@@ -1,5 +1,5 @@
 package test;
-
+import java.io.Serializable;
 import algorithms.mazeGenerators.IMazeGenerator;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;

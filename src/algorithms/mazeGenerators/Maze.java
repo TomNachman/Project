@@ -1,5 +1,4 @@
 package algorithms.mazeGenerators;
-
 /**
  *  Class Maze: Represent the Maze itself - A Two Dimensional Array
  *              Contain: start position, goal position, paths(0's) and walls (1's)
