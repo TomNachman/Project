@@ -3,7 +3,7 @@ package algorithms.mazeGenerators;
  *  Class Maze: Represent the Maze itself - A Two Dimensional Array
  *              Contain: start position, goal position, paths(0's) and walls (1's)
  */
-public class Maze {
+public class Maze{
     private int [][] myMaze;
     private int rows;
     private int cols;
