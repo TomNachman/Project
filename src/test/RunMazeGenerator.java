@@ -2,14 +2,24 @@ package test;
 
 import algorithms.mazeGenerators.*;
 
+import java.nio.ByteBuffer;
+import java.util.Arrays;
+
 /**
  * Created by Aviadjo on 3/22/2017.
  */
 public class RunMazeGenerator {
     public static void main(String[] args) {
-        testMazeGenerator(new EmptyMazeGenerator());
-        testMazeGenerator(new SimpleMazeGenerator());
-        testMazeGenerator(new MyMazeGenerator());
+        //testMazeGenerator(new EmptyMazeGenerator());
+        //testMazeGenerator(new SimpleMazeGenerator());
+        //testMazeGenerator(new MyMazeGenerator());
+        System.out.println(258&(0xff));
+        ByteBuffer bb = ByteBuffer.allocate(4);
+        for (int i=240;i<260;i++){
+            byte[] columns = ByteBuffer.allocate(4).putInt(i).array();
+            System.out.println(ByteBuffer.wrap(columns).getInt());
+        }
+
     }
 
     private static void testMazeGenerator(IMazeGenerator mazeGenerator) {

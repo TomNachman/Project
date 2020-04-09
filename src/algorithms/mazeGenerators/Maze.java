@@ -1,4 +1,7 @@
 package algorithms.mazeGenerators;
+
+import java.nio.ByteBuffer;
+
 /**
  *  Class Maze: Represent the Maze itself - A Two Dimensional Array
  *              Contain: start position, goal position, paths(0's) and walls (1's)
@@ -22,6 +25,59 @@ public class Maze{
         this.myMaze = new int[rows][cols];
         this.startPosition = null;
         this.goalPosition = null;
+    }
+    /**
+     * Maze Constructor: Gets a uncompressed byte Array that represent the Maze
+     * and creates a maze from the byte array
+     * @param byteMaze
+     */
+    public Maze(byte [] byteMaze){
+        byte [] Bcols = new byte[4];
+        int pivot=0;
+        for(int i=0 ; i < Bcols.length; i++){
+            Bcols[i] = byteMaze[i];
+            pivot++;
+        }
+        int numofCols = ByteBuffer.wrap(Bcols).getInt();
+        int numofRows = (byteMaze.length-20)/numofCols;
+    }
+
+    /**
+     * converting the maze to uncompressed byte array with all its data : size,content,start and goal
+     * @return
+     */
+    public byte[] toByteArray(){
+        int size = rows*cols +20;
+        byte [] Bcols = ByteBuffer.allocate(4).putInt(cols).array();
+        byte[] startY = ByteBuffer.allocate(4).putInt(startPosition.getColumnIndex()).array();
+        byte[] startX = ByteBuffer.allocate(4).putInt(startPosition.getRowIndex()).array();
+        byte[] goalY = ByteBuffer.allocate(4).putInt(goalPosition.getColumnIndex()).array();
+        byte[] goalX = ByteBuffer.allocate(4).putInt(goalPosition.getRowIndex()).array();
+
+        byte [] byteArray = new byte [size] ;
+        int pivot=0;
+
+        for(int i=0;i<Bcols.length;i++){
+            byteArray[pivot]=Bcols[i];
+            pivot++;
+        }
+        for (int i=0;i<startY.length;i++){
+            byteArray[pivot]=startY[i];
+            pivot++;
+        }
+        for (int i=0;i<startX.length;i++){
+            byteArray[pivot]=startX[i];
+            pivot++;
+        }
+        for(int i=pivot;i<byteArray.length;i++){ //copy all maze cells to the byteArray
+            for (int j=0;j<rows;j++)
+                for (int k=0;k<cols;k++) {
+                    byteArray[i] = (byte) myMaze[j][k];
+                    i++;
+                }
+        }
+        return byteArray;
+
     }
 
     /** @return num of rows */
