@@ -8,6 +8,7 @@ import algorithms.mazeGenerators.MyMazeGenerator;
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 
 import java.io.*;
+import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 /**
@@ -15,23 +16,11 @@ import java.util.Arrays;
  */
 public class RunCompressDecompressMaze {
     public static void main(String[] args) {
+
         String mazeFileName = "savedMaze.maze";
         AMazeGenerator mazeGenerator = new MyMazeGenerator();
-        Maze maze = mazeGenerator.generate(1000, 1000); //Generate new maze
-        //maze.print();
-
-        try {
-            OutputStream out = new MyCompressorOutputStream(new FileOutputStream(mazeFileName));
-            out.write(maze.toByteArray());
-        } catch (IOException e) {
-        e.printStackTrace();
-        }
-
-
-        /**
-        String mazeFileName = "savedMaze.maze";
-        AMazeGenerator mazeGenerator = new MyMazeGenerator();
-        Maze maze = mazeGenerator.generate(100, 100); //Generate new maze
+        Maze maze = mazeGenerator.generate(3, 3); //Generate new maze
+        maze.print();
 
         try {
             // save maze to a file
@@ -57,6 +46,5 @@ public class RunCompressDecompressMaze {
         Maze loadedMaze = new Maze(savedMazeBytes);
         boolean areMazesEquals = Arrays.equals(loadedMaze.toByteArray(),maze.toByteArray());
         System.out.println(String.format("Mazes equal: %s",areMazesEquals)); //maze should be equal to loadedMaze
-         */
     }
 }

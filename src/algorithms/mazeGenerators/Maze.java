@@ -1,6 +1,10 @@
 package algorithms.mazeGenerators;
 
+import com.sun.org.apache.xpath.internal.operations.String;
+
+import java.io.BufferedReader;
 import java.nio.ByteBuffer;
+import java.util.*;
 
 /**
  *  Class Maze: Represent the Maze itself - A Two Dimensional Array
@@ -32,14 +36,37 @@ public class Maze{
      * @param byteMaze
      */
     public Maze(byte [] byteMaze){
-        byte [] Bcols = new byte[4];
-        int pivot=0;
-        for(int i=0 ; i < Bcols.length; i++){
-            Bcols[i] = byteMaze[i];
-            pivot++;
+
+        byte [] numberOfRows = Arrays.copyOfRange(byteMaze, 0 ,4 );
+        byte [] startRow =  Arrays.copyOfRange(byteMaze, 4 ,8 );
+        byte [] startCol = Arrays.copyOfRange(byteMaze, 8 ,12 );
+        byte [] goalRow = Arrays.copyOfRange(byteMaze, 12 ,16 );
+        byte [] goalCol = Arrays.copyOfRange(byteMaze, 16 ,20 );
+        byte [] byteMazeOnlyCells = Arrays.copyOfRange(byteMaze,20, byteMaze.length);
+
+        java.lang.String c = new java.lang.String(numberOfRows);
+        System.out.println(c);
+
+
+        System.out.println(numberOfRows[0]);
+        //for (byte b:byteMaze) System.out.println(b);
+        //this.rows = ByteBuffer.wrap(numberOfRows).getInt();
+        //System.out.println(String.format("Size of the Rows is: %d", this.rows));
+        //System.out.println(String.format("Length of byteMaze is: %d", byteMaze.length-20));
+        //this.cols = (byteMaze.length-20)/this.rows;
+
+        this.rows = 3;
+        this.cols = 3;
+
+        this.myMaze = new int[rows][cols];
+        this.startPosition = new Position(ByteBuffer.wrap(startRow).getInt(), ByteBuffer.wrap(startCol).getInt());
+        this.goalPosition = new Position(ByteBuffer.wrap(goalRow).getInt(), ByteBuffer.wrap(goalCol).getInt());
+        for(int i = 0; i < this.rows; i++){
+            for(int j = 0; j < this.cols; j++) {
+                myMaze[i][j] = byteMazeOnlyCells[i * this.cols+ j];
+            }
         }
-        this.cols = ByteBuffer.wrap(Bcols).getInt();
-        this.rows = (byteMaze.length-20)/this.cols;
+        this.print();
     }
 
     /**
@@ -48,33 +75,37 @@ public class Maze{
      */
     public byte[] toByteArray(){
         int size = rows*cols +20;
-        byte [] Bcols = ByteBuffer.allocate(4).putInt(cols).array();
-        byte[] startY = ByteBuffer.allocate(4).putInt(startPosition.getColumnIndex()).array();
-        byte[] startX = ByteBuffer.allocate(4).putInt(startPosition.getRowIndex()).array();
-        byte[] goalY = ByteBuffer.allocate(4).putInt(goalPosition.getColumnIndex()).array();
-        byte[] goalX = ByteBuffer.allocate(4).putInt(goalPosition.getRowIndex()).array();
+        byte [] numberOfRows = ByteBuffer.allocate(4).putInt(this.rows).array();
+        byte [] startRow = ByteBuffer.allocate(4).putInt(startPosition.getRowIndex()).array();
+        byte [] startCol = ByteBuffer.allocate(4).putInt(startPosition.getColumnIndex()).array();
+        byte [] goalRow = ByteBuffer.allocate(4).putInt(goalPosition.getRowIndex()).array();
+        byte [] goalCol = ByteBuffer.allocate(4).putInt(goalPosition.getColumnIndex()).array();
 
         byte [] byteArray = new byte [size] ;
         int pivot=0;
 
-        for (byte bcol : Bcols) {
-            byteArray[pivot] = bcol;
+        for (byte r : numberOfRows) {
+            byteArray[pivot] = r;
             pivot++;
         }
-        for (byte b : startY) {
-            byteArray[pivot] = b;
+
+        for (byte r : startRow) {
+            byteArray[pivot] = r;
             pivot++;
         }
-        for (byte x : startX) {
-            byteArray[pivot] = x;
+
+        for (byte c : startCol) {
+            byteArray[pivot] = c;
             pivot++;
         }
-        for (byte b : goalY) {
-            byteArray[pivot] = b;
+
+        for (byte r : goalRow) {
+            byteArray[pivot] = r;
             pivot++;
         }
-        for (byte x : goalX) {
-            byteArray[pivot] = x;
+
+        for (byte c : goalCol) {
+            byteArray[pivot] = c;
             pivot++;
         }
 
@@ -86,7 +117,6 @@ public class Maze{
                 }
         }
         return byteArray;
-
     }
 
     /** @return num of rows */
