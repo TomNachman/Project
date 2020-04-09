@@ -3,6 +3,7 @@ package test;
 import algorithms.mazeGenerators.*;
 
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -15,10 +16,9 @@ public class RunMazeGenerator {
         //testMazeGenerator(new MyMazeGenerator());
         System.out.println(258&(0xff));
         ByteBuffer bb = ByteBuffer.allocate(4);
-        for (int i=240;i<260;i++){
-            byte[] columns = ByteBuffer.allocate(4).putInt(i).array();
-            System.out.println(ByteBuffer.wrap(columns).getInt());
-        }
+        byte[] columns = ByteBuffer.allocate(4).putInt(1000000000).array();
+        System.out.println(Arrays.toString(columns));
+
 
     }
 

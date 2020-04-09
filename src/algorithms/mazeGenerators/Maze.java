@@ -38,8 +38,8 @@ public class Maze{
             Bcols[i] = byteMaze[i];
             pivot++;
         }
-        int numofCols = ByteBuffer.wrap(Bcols).getInt();
-        int numofRows = (byteMaze.length-20)/numofCols;
+        this.cols = ByteBuffer.wrap(Bcols).getInt();
+        this.rows = (byteMaze.length-20)/this.cols;
     }
 
     /**
@@ -57,18 +57,27 @@ public class Maze{
         byte [] byteArray = new byte [size] ;
         int pivot=0;
 
-        for(int i=0;i<Bcols.length;i++){
-            byteArray[pivot]=Bcols[i];
+        for (byte bcol : Bcols) {
+            byteArray[pivot] = bcol;
             pivot++;
         }
-        for (int i=0;i<startY.length;i++){
-            byteArray[pivot]=startY[i];
+        for (byte b : startY) {
+            byteArray[pivot] = b;
             pivot++;
         }
-        for (int i=0;i<startX.length;i++){
-            byteArray[pivot]=startX[i];
+        for (byte x : startX) {
+            byteArray[pivot] = x;
             pivot++;
         }
+        for (byte b : goalY) {
+            byteArray[pivot] = b;
+            pivot++;
+        }
+        for (byte x : goalX) {
+            byteArray[pivot] = x;
+            pivot++;
+        }
+
         for(int i=pivot;i<byteArray.length;i++){ //copy all maze cells to the byteArray
             for (int j=0;j<rows;j++)
                 for (int k=0;k<cols;k++) {
