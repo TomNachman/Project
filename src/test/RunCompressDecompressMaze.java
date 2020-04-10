@@ -17,18 +17,12 @@ import java.util.Arrays;
 public class RunCompressDecompressMaze {
     public static void main(String[] args) {
 
-        /**
-        String x = "abcafer";
-        Integer y = Integer.valueOf(x);
-        byte [] b = y.byteValue();
-        */
-
 
 
         String mazeFileName = "savedMaze.maze";
         AMazeGenerator mazeGenerator = new MyMazeGenerator();
-        Maze maze = mazeGenerator.generate(3, 3); //Generate new maze
-        maze.print();
+        Maze maze = mazeGenerator.generate(1000, 1000); //Generate new maze
+        //maze.print();
 
         try {
             // save maze to a file

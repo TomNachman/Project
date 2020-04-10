@@ -47,12 +47,6 @@ public class Maze{
         this.rows = ByteBuffer.wrap(numberOfRows).getInt();
         this.cols = (byteMaze.length-20)/this.rows;
 
-        System.out.println("");
-        System.out.println("Number of rows:");
-        System.out.println(Arrays.toString(numberOfRows));
-        System.out.println(this.cols);
-
-
         this.myMaze = new int[rows][cols];
         this.startPosition = new Position(ByteBuffer.wrap(startRow).getInt(), ByteBuffer.wrap(startCol).getInt());
         this.goalPosition = new Position(ByteBuffer.wrap(goalRow).getInt(), ByteBuffer.wrap(goalCol).getInt());

@@ -3,6 +3,8 @@ import javax.xml.transform.sax.SAXSource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
 import java.util.*;
 
 public class MyDecompressorInputStream extends InputStream {
@@ -27,15 +29,16 @@ public class MyDecompressorInputStream extends InputStream {
             myList.add(content);
         }
 
-        String x = decompress(myList);
-        System.out.println(x);
-        byte [] returnBytes = x.getBytes("ISO-8859-1");
-
-        System.arraycopy(returnBytes, 0, b, 0, b.length);
-
-        System.out.println("After Decompressor:");
-        System.out.println(Arrays.toString(returnBytes));
-
+        String str = decompress(myList);
+        //from string to int array
+        int[] arr = Arrays.stream(str.substring(1, str.length()-1).split(","))
+                .map(String::trim).mapToInt(Integer::parseInt).toArray();
+        //from int array to byte array
+        byte[] byteArr = new byte[arr.length];
+        for(int i=0;i<byteArr.length;i++){
+            byteArr[i] = (byte)arr[i];
+        }
+        System.arraycopy(byteArr, 0, b, 0, b.length);
         return 0;
     }
 
