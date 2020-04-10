@@ -2,40 +2,34 @@ package IO;
 import java.io.*;
 import java.util.*;
 
+/**
+ *
+ */
 public class MyCompressorOutputStream extends OutputStream {
-    private OutputStream outBefore;
-    private OutputStream outAfter;
-
+    private OutputStream out;
 
     /** MyCompressorOutputStream Constructor */
     public MyCompressorOutputStream(OutputStream outputStream) throws FileNotFoundException {
-        this.outBefore = outputStream;
-        this.outAfter = new FileOutputStream("savedMazeAfter.maze");
+        this.out = outputStream;
     }
 
+    /** Interface write */
     @Override
     public void write(int b) throws IOException {
     }
 
+    /** The Main function of the class - write the data from the byte[] array to the  file (after compressing) */
     @Override
     public void write(byte[] b) throws IOException {
-
-        // Before Compression File
-        try{ outBefore.write(Arrays.toString(b).getBytes());
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-
-        // After Compression File
         List<Integer> result = compress(Arrays.toString(b));
-        try{ outAfter.write(result.toString().getBytes());
+        try{ out.write(result.toString().getBytes());
         }catch (IOException e){
             e.printStackTrace();
         }
-
     }
 
-    public List<Integer> compress(String uncompressed) {
+    /** Compress a String to a list of List<Integer> According to LZW - Algorithm*/
+    private List<Integer> compress(String uncompressed) {
         // Build the dictionary.
         int dictSize = 256;
         Map<String,Integer> dictionary = new HashMap<String,Integer>();
@@ -62,4 +56,5 @@ public class MyCompressorOutputStream extends OutputStream {
 
         return result;
     }
+
 }

@@ -1,8 +1,13 @@
 package IO;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.*;
 
+/**
+ *
+ */
 public class MyDecompressorInputStream extends InputStream {
     private InputStream in;
 
@@ -11,34 +16,60 @@ public class MyDecompressorInputStream extends InputStream {
         this.in = inputStream;
     }
 
+    /** Interface read */
     @Override
     public int read() throws IOException {
         return 0;
     }
 
+    /** The Main function of the class - read the data from the file and put it in the byte[] array
+     * @param b - The array to insert the data
+     */
     public int read(byte[] b) throws IOException {
 
-        List<Integer> myList = new ArrayList<>();
-        int content;
+        // Reading the data from the file and converting to List<Integer>
+        List<Integer> myList = fileToBytesString();
 
-        while ((content = in.read()) != -1) {
-            myList.add(content);
-        }
+        // Decompress the List and return String
+        String strAfter = decompress(myList);
 
-        String str = decompress(myList);
-        //from string to int array
-        int[] arr = Arrays.stream(str.substring(1, str.length()-1).split(","))
-                .map(String::trim).mapToInt(Integer::parseInt).toArray();
-        //from int array to byte array
-        byte[] byteArr = new byte[arr.length];
-        for(int i=0;i<byteArr.length;i++){
-            byteArr[i] = (byte)arr[i];
+        // Converting From string to int[]
+        int[] arr2 = Arrays.stream(strAfter.substring(1, strAfter.length()-1).split(","))
+                    .map(String::trim).mapToInt(Integer::parseInt).toArray();
+
+        for(int i=0;i<arr2.length;i++){
+            b[i] = (byte)arr2[i];
         }
-        System.arraycopy(byteArr, 0, b, 0, b.length);
         return 0;
     }
 
-    public String decompress(List<Integer> compressed) {
+    /** Reading the data from the file and converting to List<Integer>
+     * @return List of Integers
+     */
+    private List<Integer> fileToBytesString(){
+        try{
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            StringBuilder out = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                out.append(line);
+            }
+            reader.close();
+
+            // Reading the data from the file and converting to String
+            int[] arr = Arrays.stream(out.substring(1, out.length()-1).split(","))
+                    .map(String::trim).mapToInt(Integer::parseInt).toArray();
+
+            List<Integer> myList = new ArrayList<>();
+            for(Integer i:arr){ myList.add(i);}
+            return myList;
+        }
+        catch (IOException e){e.printStackTrace();}
+        return null;
+    }
+
+    /** Decompress a list of List<Integer> to a string According to LZW - Algorithm*/
+    private String decompress(List<Integer> compressed) {
         // Build the dictionary.
         int dictSize = 256;
         Map<Integer,String> dictionary = new HashMap<Integer,String>();
@@ -63,7 +94,7 @@ public class MyDecompressorInputStream extends InputStream {
 
             w = entry;
         }
-
-        return  result.toString();
+        //System.out.println(result.toString());
+        return result.toString();
     }
 }
