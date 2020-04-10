@@ -1,6 +1,8 @@
 package IO;
+import javax.xml.transform.sax.SAXSource;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.ByteBuffer;
 import java.util.*;
 
 public class MyDecompressorInputStream extends InputStream {
@@ -20,16 +22,24 @@ public class MyDecompressorInputStream extends InputStream {
 
         List<Integer> myList = new ArrayList<>();
         int content;
+
         while ((content = in.read()) != -1) {
             myList.add(content);
         }
 
-        byte [] returnBytes = decompress(myList);
+        String x = decompress(myList);
+        System.out.println(x);
+        byte [] returnBytes = x.getBytes("ISO-8859-1");
+
         System.arraycopy(returnBytes, 0, b, 0, b.length);
+
+        System.out.println("After Decompressor:");
+        System.out.println(Arrays.toString(returnBytes));
+
         return 0;
     }
 
-    public byte[] decompress(List<Integer> compressed) {
+    public String decompress(List<Integer> compressed) {
         // Build the dictionary.
         int dictSize = 256;
         Map<Integer,String> dictionary = new HashMap<Integer,String>();
@@ -54,6 +64,7 @@ public class MyDecompressorInputStream extends InputStream {
 
             w = entry;
         }
-        return String.valueOf(result).getBytes();
+
+        return  result.toString();
     }
 }

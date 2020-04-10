@@ -19,7 +19,10 @@ public class MyCompressorOutputStream extends OutputStream {
 
     @Override
     public void write(byte[] b) throws IOException {
+
         // Before Compression File
+        System.out.println("Before Compress:");
+        System.out.println(Arrays.toString(b));
         try{ outBefore.write(Arrays.toString(b).getBytes());
         }catch (IOException e){
             e.printStackTrace();
@@ -31,6 +34,9 @@ public class MyCompressorOutputStream extends OutputStream {
         }catch (IOException e){
             e.printStackTrace();
         }
+
+        System.out.println("After Compress:");
+        System.out.println(Arrays.toString(result.toString().getBytes()));
     }
 
     public List<Integer> compress(String uncompressed) {

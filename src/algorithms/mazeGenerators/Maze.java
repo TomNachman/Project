@@ -44,19 +44,14 @@ public class Maze{
         byte [] goalCol = Arrays.copyOfRange(byteMaze, 16 ,20 );
         byte [] byteMazeOnlyCells = Arrays.copyOfRange(byteMaze,20, byteMaze.length);
 
-        java.lang.String c = new java.lang.String(numberOfRows);
-        System.out.println(c);
+        this.rows = ByteBuffer.wrap(numberOfRows).getInt();
+        this.cols = (byteMaze.length-20)/this.rows;
 
+        System.out.println("");
+        System.out.println("Number of rows:");
+        System.out.println(Arrays.toString(numberOfRows));
+        System.out.println(this.cols);
 
-        System.out.println(numberOfRows[0]);
-        //for (byte b:byteMaze) System.out.println(b);
-        //this.rows = ByteBuffer.wrap(numberOfRows).getInt();
-        //System.out.println(String.format("Size of the Rows is: %d", this.rows));
-        //System.out.println(String.format("Length of byteMaze is: %d", byteMaze.length-20));
-        //this.cols = (byteMaze.length-20)/this.rows;
-
-        this.rows = 3;
-        this.cols = 3;
 
         this.myMaze = new int[rows][cols];
         this.startPosition = new Position(ByteBuffer.wrap(startRow).getInt(), ByteBuffer.wrap(startCol).getInt());
@@ -66,7 +61,6 @@ public class Maze{
                 myMaze[i][j] = byteMazeOnlyCells[i * this.cols+ j];
             }
         }
-        this.print();
     }
 
     /**
