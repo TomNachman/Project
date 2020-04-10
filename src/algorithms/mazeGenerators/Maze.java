@@ -1,8 +1,5 @@
 package algorithms.mazeGenerators;
 
-import com.sun.org.apache.xpath.internal.operations.String;
-
-import java.io.BufferedReader;
 import java.nio.ByteBuffer;
 import java.util.*;
 
@@ -37,6 +34,7 @@ public class Maze{
      */
     public Maze(byte [] byteMaze){
 
+        // Extracting all maze details from the byteArray to spreads byteArray (: number of rows, start & goal positions)
         byte [] numberOfRows = Arrays.copyOfRange(byteMaze, 0 ,4 );
         byte [] startRow =  Arrays.copyOfRange(byteMaze, 4 ,8 );
         byte [] startCol = Arrays.copyOfRange(byteMaze, 8 ,12 );
@@ -44,6 +42,8 @@ public class Maze{
         byte [] goalCol = Arrays.copyOfRange(byteMaze, 16 ,20 );
         byte [] byteMazeOnlyCells = Arrays.copyOfRange(byteMaze,20, byteMaze.length);
 
+
+        //  Creating the Maze
         this.rows = ByteBuffer.wrap(numberOfRows).getInt();
         this.cols = (byteMaze.length-20)/this.rows;
 
@@ -58,11 +58,11 @@ public class Maze{
     }
 
     /**
-     * converting the maze to uncompressed byte array with all its data : size,content,start and goal
-     * @return
+     * converting the maze to uncompressed byte array with all its data : size,start & goal positions, content
+     * @return byteArray that representing the maze
      */
     public byte[] toByteArray(){
-        int size = rows*cols +20;
+        int size = rows*cols + 20;
         byte [] numberOfRows = ByteBuffer.allocate(4).putInt(this.rows).array();
         byte [] startRow = ByteBuffer.allocate(4).putInt(startPosition.getRowIndex()).array();
         byte [] startCol = ByteBuffer.allocate(4).putInt(startPosition.getColumnIndex()).array();
@@ -72,39 +72,34 @@ public class Maze{
         byte [] byteArray = new byte [size] ;
         int pivot=0;
 
-        for (byte r : numberOfRows) {
-            byteArray[pivot] = r;
-            pivot++;
-        }
+        // copy all maze details to the byteArray (: number of rows, start & goal positions)
+        pivot = insertToByteArray(byteArray, numberOfRows, pivot);
+        pivot = insertToByteArray(byteArray, startRow, pivot);
+        pivot = insertToByteArray(byteArray, startCol, pivot);
+        pivot = insertToByteArray(byteArray, goalRow, pivot);
+        pivot = insertToByteArray(byteArray, goalCol, pivot);
 
-        for (byte r : startRow) {
-            byteArray[pivot] = r;
-            pivot++;
-        }
-
-        for (byte c : startCol) {
-            byteArray[pivot] = c;
-            pivot++;
-        }
-
-        for (byte r : goalRow) {
-            byteArray[pivot] = r;
-            pivot++;
-        }
-
-        for (byte c : goalCol) {
-            byteArray[pivot] = c;
-            pivot++;
-        }
-
-        for(int i=pivot;i<byteArray.length;i++){ //copy all maze cells to the byteArray
-            for (int j=0;j<rows;j++)
-                for (int k=0;k<cols;k++) {
+        // copy all maze cells to the byteArray
+        for(int i=pivot;i<byteArray.length;i++){
+            for (int j=0;j<rows;j++) {
+                for (int k = 0; k < cols; k++) {
                     byteArray[i] = (byte) myMaze[j][k];
-                    i++;
                 }
+            }
         }
         return byteArray;
+    }
+
+    /**
+     * Insert the value of byteArr2 into byteArr1 starting in the pivot index
+     * @return the current pivot
+     * */
+    private int insertToByteArray(byte[] byteArr1, byte[] byteArr2, int pivot) {
+        for (byte r : byteArr2) {
+            byteArr1[pivot] = r;
+            pivot++;
+        }
+        return pivot;
     }
 
     /** @return num of rows */
@@ -227,11 +222,12 @@ public class Maze{
         }
     }
 
+    public void setDefaultGoal(){
+        goalPosition = new Position(getRows()-1, getCols()-1);
+    }
+
     /** Print the Maze to the command */
     public void print(){
-        if(this.getGoalPosition()==null) {
-            goalPosition = new Position(getRows()-1, getCols()-1);
-        }
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.cols; j++) {
                 if(i == startPosition.getRowIndex()&& j == startPosition.getColumnIndex()){

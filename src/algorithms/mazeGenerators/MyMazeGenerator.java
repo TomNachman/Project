@@ -16,6 +16,7 @@ public class MyMazeGenerator extends AMazeGenerator {
         if(rows<=0 || cols <=0) return null;
         Maze myMaze = new Maze(rows, cols);
         Prim(myMaze);
+        if(myMaze.getGoalPosition()==null) myMaze.setDefaultGoal();
         return myMaze;
     }
 
