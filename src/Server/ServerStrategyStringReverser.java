@@ -1,4 +1,4 @@
 package Server;
 
-public class ServerStrategyStringReverser {
+public class ServerStrategyStringReverser implements IServerStrategy {
 }
