@@ -1,11 +1,12 @@
 package algorithms.mazeGenerators;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
 /**
  * Position Class: Represents the current position in a maze with x(row) and y(col) coordinates.
  */
-public class Position {
+public class Position implements Serializable {
     private int x;
     private int y;
 

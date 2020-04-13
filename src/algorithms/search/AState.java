@@ -1,10 +1,12 @@
 package algorithms.search;
 import algorithms.mazeGenerators.Position;
 
+import java.io.Serializable;
+
 /**
  * Abstract Class AState: Represent a State of a Position (his value, prevCell, Position)
  */
-public abstract class AState {
+public abstract class AState implements Serializable {
     protected int val;
     private AState prev;
     private Position myPos;

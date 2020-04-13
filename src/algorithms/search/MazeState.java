@@ -1,11 +1,13 @@
 package algorithms.search;
 import algorithms.mazeGenerators.Position;
 
+import java.io.Serializable;
+
 /**
  *  MazeState Class: Extend AState and change the value of all maze state to be 10 (in the beginning)
  *  In that way we stay abstract in the AState class.
  */
-public class MazeState extends AState{
+public class MazeState extends AState implements Serializable {
 
     /** Parameter Constructor with a given Position */
     public MazeState(Position position) {

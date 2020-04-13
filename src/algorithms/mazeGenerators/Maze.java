@@ -1,5 +1,6 @@
 package algorithms.mazeGenerators;
 
+import java.io.Serializable;
 import java.nio.ByteBuffer;
 import java.util.*;
 
@@ -7,7 +8,7 @@ import java.util.*;
  *  Class Maze: Represent the Maze itself - A Two Dimensional Array
  *              Contain: start position, goal position, paths(0's) and walls (1's)
  */
-public class Maze{
+public class Maze implements Serializable {
     private int [][] myMaze;
     private int rows;
     private int cols;
