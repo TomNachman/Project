@@ -3,13 +3,11 @@ package Server;
 import java.io.*;
 
 import IO.MyCompressorOutputStream;
-import algorithms.mazeGenerators.EmptyMazeGenerator;
 import algorithms.mazeGenerators.IMazeGenerator;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
 
 public class ServerStrategyGenerateMaze implements IServerStrategy {
-
 
     @Override
     public void serverStrategy(InputStream inFromClient, OutputStream outToClient) throws FileNotFoundException {
