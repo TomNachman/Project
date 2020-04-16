@@ -1,6 +1,11 @@
 package Server;
 import sun.nio.ch.ThreadPool;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.SocketTimeoutException;
+
 public class Server {
     private int Port;
     private int listeningIntervalMS;
@@ -15,7 +20,30 @@ public class Server {
         this.stop = false;
     }
     public void start(){
-        //need todo here something with thread thats calls a function to start the server
+        //need todo here something with thread thats calls runServer method
+    }
+    public void runServer(){
+        try {
+            ServerSocket serverSocket = new ServerSocket(Port);
+            serverSocket.setSoTimeout(listeningIntervalMS);
+            while(!stop){
+                try {
+                    Socket ClientSocket = serverSocket.accept(); //Accept the clients
+                    //TODO: add serverstartegy to handle client data(Generate and Solve)
+                    //TODO: add prints to get feedback from server/client
+                    serverStrategy.serverStrategy(ClientSocket.getInputStream(), ClientSocket.getOutputStream());
+                    ClientSocket.getInputStream().close();
+                    ClientSocket.getOutputStream().close();
+                    ClientSocket.close();
+                }catch (SocketTimeoutException e) {
+                    System.out.println("Socket Timeout - No clients pending!");
+                }
+
+            }
+        }catch (IOException e) {
+            System.out.println("IOException"+ e);
+        }
+
     }
 
     /** Example from Lab
