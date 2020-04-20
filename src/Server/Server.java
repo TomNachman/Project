@@ -1,17 +1,17 @@
 package Server;
-import sun.nio.ch.ThreadPool;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketTimeoutException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+
 
 public class Server {
     private int Port;
     private int listeningIntervalMS;
     private IServerStrategy serverStrategy;
     private volatile boolean stop; //volatile - refreshes the value in all threads
-    //private ThreadPool pool;
 
     public Server(int port, int listeningIntervalMS, IServerStrategy serverStrategy) {
         this.Port = port;
@@ -19,17 +19,42 @@ public class Server {
         this.serverStrategy = serverStrategy;
         this.stop = false;
     }
-    public void start(){
+    public void start() throws IOException {
+        ServerSocket serverSocket = new ServerSocket(Port);
+        serverSocket.setSoTimeout(listeningIntervalMS);
+        System.out.println(("Server is waiting for clients"));
+        ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(10); // im guessing the num of threds
+        while (!stop) {
+            Socket ClientSocket = serverSocket.accept();
+            System.out.println(String.format("Client in: %s", ClientSocket));
+            executor.execute(() -> {
+                try {
+                    serverStrategy.serverStrategy(ClientSocket.getInputStream(), ClientSocket.getOutputStream());
+                    ClientSocket.close();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            serverSocket.close();
+        }
+        executor.shutdown();
+        serverSocket.close();
+    }
+    /**
+    public void start() {
         //need todo here something with thread thats calls runServer method
     }
     public void runServer(){
         try {
             ServerSocket serverSocket = new ServerSocket(Port);
             serverSocket.setSoTimeout(listeningIntervalMS);
+            System.out.println(("Server is waiting for clients"));
             while(!stop){
                 try {
                     Socket ClientSocket = serverSocket.accept(); //Accept the clients
-                    //TODO: add serverstartegy to handle client data(Generate and Solve)
+                    System.out.println(String.format("Client in: %s", ClientSocket));
+                    //TODO: add handleclient method ,the threadspool will handle each client
                     //TODO: add prints to get feedback from server/client
                     serverStrategy.serverStrategy(ClientSocket.getInputStream(), ClientSocket.getOutputStream());
                     ClientSocket.getInputStream().close();
@@ -44,8 +69,10 @@ public class Server {
             System.out.println("IOException"+ e);
         }
 
+    }*/
+    public void stop(){
+        this.stop=true;
     }
-
     /** Example from Lab
      public void start() {
          try {
@@ -74,7 +101,4 @@ public class Server {
          }
      }
      */
-    public void stop(){
-        this.stop=true;
-    }
 }
