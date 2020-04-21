@@ -1,8 +1,10 @@
 package Server;
 
 import java.io.*;
+import java.util.Arrays;
 
 import IO.MyCompressorOutputStream;
+import IO.MyDecompressorInputStream;
 import algorithms.mazeGenerators.IMazeGenerator;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
@@ -15,10 +17,13 @@ public class ServerStrategyGenerateMaze implements IServerStrategy {
         try{
             ObjectInputStream DimInputStream = new ObjectInputStream(inFromClient);
             ObjectOutputStream MazeOutputStream = new ObjectOutputStream(outToClient);
-            int [] MazeDim = (int[])DimInputStream.readObject();
+            int [] MazeDim = (int[])DimInputStream.readObject(); //check input(nul...)
             //Generate maze
             IMazeGenerator mg = new MyMazeGenerator();
             Maze GenMaze = mg.generate(MazeDim[0]/*Rows*/,MazeDim[1]/*Cols*/);
+            System.out.println("--------");
+            GenMaze.print();
+            System.out.println("--------");
             //declaring ByteOutputCompressStream as byte maze to send
             ByteArrayOutputStream ByteOutputCompressStream = new ByteArrayOutputStream();
             MyCompressorOutputStream compressed = new MyCompressorOutputStream(ByteOutputCompressStream);

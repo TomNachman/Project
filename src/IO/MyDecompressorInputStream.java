@@ -48,6 +48,7 @@ public class MyDecompressorInputStream extends InputStream {
      */
     private List<Integer> fileToBytesString(){
         try{
+            System.out.println(String.format("input stream %s", in.toString()));
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
             StringBuilder out = new StringBuilder();
             String line;
