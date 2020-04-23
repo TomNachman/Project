@@ -29,8 +29,8 @@ public class RunCommunicateWithServers {
         //solveSearchProblemServer.start();
         mazeGeneratingServer.start();
         //stringReverserServer.start();
-        //Communicating with servers
-        CommunicateWithServer_MazeGenerating();
+        //Communicatin with servers
+        for(int i=0;i<=2;i++)CommunicateWithServer_MazeGenerating();
         //CommunicateWithServer_SolveSearchProblem();
         //CommunicateWithServer_StringReverser();
 
@@ -54,12 +54,12 @@ public class RunCommunicateWithServers {
                         toServer.flush();
                         byte[] compressedMaze = (byte[]) fromServer.readObject(); //read generated maze (compressed with MyCompressor) from server
                         InputStream is = new MyDecompressorInputStream(new ByteArrayInputStream(compressedMaze));
-                        System.out.println(String.format("Test length: %d",compressedMaze.length));
                         byte[] decompressedMaze = new byte[36 /*CHANGE SIZE ACCORDING TO YOU MAZE SIZE*/]; //allocating byte[] for the decompressed maze -
+                        //---Check Read Function!!!!!!!!!!!! ---
                         is.read(decompressedMaze); //Fill decompressedMaze with bytes
                         byte [] numberOfRows = Arrays.copyOfRange(decompressedMaze, 0 ,4 );
-                        System.out.println(String.format("Rows: %s", ByteBuffer.wrap(numberOfRows).getInt()));
                         Maze maze = new Maze(decompressedMaze);
+                        System.out.println("Maze is:");
                         maze.print();
                     } catch (Exception e) {
                         e.printStackTrace();

@@ -81,13 +81,12 @@ public class Maze implements Serializable {
         pivot = insertToByteArray(byteArray, goalCol, pivot);
 
         // copy all maze cells to the byteArray
-        for(int i=pivot;i<byteArray.length;i++){
             for (int j=0;j<rows;j++) {
                 for (int k = 0; k < cols; k++) {
-                    byteArray[i] = (byte) myMaze[j][k];
+                    byteArray[pivot] = (byte) myMaze[j][k];
+                    pivot++;
                 }
             }
-        }
         return byteArray;
     }
 

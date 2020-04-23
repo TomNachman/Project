@@ -12,7 +12,6 @@ import algorithms.mazeGenerators.MyMazeGenerator;
 public class ServerStrategyGenerateMaze implements IServerStrategy {
 
     @Override
-    // ראיתי באיזה סרטון ששמים כאן synchronized בהקשר הthreads אבל אין לי מושג עדיין
     public void serverStrategy(InputStream inFromClient, OutputStream outToClient) throws FileNotFoundException {
         try{
             ObjectInputStream DimInputStream = new ObjectInputStream(inFromClient);
@@ -21,15 +20,18 @@ public class ServerStrategyGenerateMaze implements IServerStrategy {
             //Generate maze
             IMazeGenerator mg = new MyMazeGenerator();
             Maze GenMaze = mg.generate(MazeDim[0]/*Rows*/,MazeDim[1]/*Cols*/);
-            System.out.println("--------");
-            GenMaze.print();
-            System.out.println("--------");
+
             //declaring ByteOutputCompressStream as byte maze to send
             ByteArrayOutputStream ByteOutputCompressStream = new ByteArrayOutputStream();
             MyCompressorOutputStream compressed = new MyCompressorOutputStream(ByteOutputCompressStream);
+
             compressed.write(GenMaze.toByteArray());
+            compressed.flush();
+            compressed.close();
+
             MazeOutputStream.writeObject(ByteOutputCompressStream.toByteArray());
             MazeOutputStream.flush();
+
         } catch (IOException | ClassNotFoundException e) {
         e.printStackTrace();
     }

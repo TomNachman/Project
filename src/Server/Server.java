@@ -91,32 +91,4 @@ public class Server {
         System.out.println("Server Stopped");
         this.stop=true;
     }
-    /** Example from Lab
-     public void start() {
-         try {
-             ServerSocket serverSocket = new ServerSocket(port);
-             serverSocket.setSoTimeout(listeningIntervalMS);
-             LOG.info(String.format("Server starter at %s!", serverSocket));
-             LOG.info(String.format("Server's Strategy: %s", serverStrategy.getClass().getSimpleName()));
-             LOG.info("Server is waiting for clients...");
-             while (!stop) {
-                 try {
-                     Socket clientSocket = serverSocket.accept(); // Accepts client
-                     LOG.info(String.format("Client excepted: %s", clientSocket));
-                     try {
-                         serverStrategy.serverStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
-                         clientSocket.close();
-                     } catch (IOException e) {
-                        LOG.error("IOException - Error handing client!", e);
-                     }
-                 } catch (SocketTimeoutException e) {
-                    LOG.debug("Socket Timeout - No clients are waiting!");
-                 }
-             }
-             serverSocket.close();
-         } catch (IOException e) {
-         LOG.error("IOException:", e);
-         }
-     }
-     */
 }

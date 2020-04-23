@@ -1,8 +1,5 @@
 package IO;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -48,7 +45,6 @@ public class MyDecompressorInputStream extends InputStream {
      */
     private List<Integer> fileToBytesString(){
         try{
-            System.out.println(String.format("input stream %s", in.toString()));
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
             StringBuilder out = new StringBuilder();
             String line;
@@ -95,7 +91,6 @@ public class MyDecompressorInputStream extends InputStream {
 
             w = entry;
         }
-        //System.out.println(result.toString());
         return result.toString();
     }
 }
