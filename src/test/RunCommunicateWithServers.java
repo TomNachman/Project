@@ -23,21 +23,22 @@ public class RunCommunicateWithServers {
         //--Initializing servers
         Server mazeGeneratingServer = new Server(5400, 1000, new ServerStrategyGenerateMaze());
         Server solveSearchProblemServer = new Server(5401, 1000, new ServerStrategySolveSearchProblem());
-        //Server stringReverserServer = new Server(5402, 1000, new ServerStrategyStringReverser());
+        Server stringReverserServer = new Server(5402, 1000, new ServerStrategyStringReverser());
 
         //---Starting  servers
-        //solveSearchProblemServer.start();
-        mazeGeneratingServer.start();
-        //stringReverserServer.start();
-        //Communicatin with servers
-        for(int i=0;i<=2;i++)CommunicateWithServer_MazeGenerating();
+        solveSearchProblemServer.start();
+        //mazeGeneratingServer.start();
+        stringReverserServer.start();
+
+        //---Communicatin with servers
+        CommunicateWithServer_MazeGenerating();
         //CommunicateWithServer_SolveSearchProblem();
-        //CommunicateWithServer_StringReverser();
+        CommunicateWithServer_StringReverser();
 
         //---Stopping all servers
-        mazeGeneratingServer.stop();
+        //mazeGeneratingServer.stop();
         //solveSearchProblemServer.stop();
-        //stringReverserServer.stop();
+        stringReverserServer.stop();
     }
 
     private static void CommunicateWithServer_MazeGenerating() {
@@ -119,6 +120,7 @@ public class RunCommunicateWithServers {
                         toServer.write(message + "\n");
                         toServer.flush();
                         serverResponse = fromServer.readLine();
+                        System.out.println(String.format("Server Input: %s", message));
                         System.out.println(String.format("Server response: %s", serverResponse));
                         toServer.flush();
                         fromServer.close();

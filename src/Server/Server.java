@@ -22,7 +22,7 @@ public class Server {
     }
     public void start()  {
         try{
-            //check if port is availbale?
+            //TODO:check if port is availbale?
             ServerSocket serverSocket = new ServerSocket(Port);
             serverSocket.setSoTimeout(listeningIntervalMS);
             System.out.println((String.format("Server starter at: %s", serverSocket)));
@@ -58,35 +58,6 @@ public class Server {
             System.out.println("IOException"+ e);
         }
     }
-    /**
-    public void start() {
-        new Th
-    }
-    public void runServer(){
-        try {
-            ServerSocket serverSocket = new ServerSocket(Port);
-            serverSocket.setSoTimeout(listeningIntervalMS);
-            System.out.println(("Server is waiting for clients"));
-            while(!stop){
-                try {
-                    Socket ClientSocket = serverSocket.accept(); //Accept the clients
-                    System.out.println(String.format("Client in: %s", ClientSocket));
-                    //TODO: add handleclient method ,the threadspool will handle each client
-                    //TODO: add prints to get feedback from server/client
-                    serverStrategy.serverStrategy(ClientSocket.getInputStream(), ClientSocket.getOutputStream());
-                    ClientSocket.getInputStream().close();
-                    ClientSocket.getOutputStream().close();
-                    ClientSocket.close();
-                }catch (SocketTimeoutException e) {
-                    System.out.println("Socket Timeout - No clients pending!");
-                }
-
-            }
-        }catch (IOException e) {
-            System.out.println("IOException"+ e);
-        }
-
-    }*/
     public void stop(){
         System.out.println("Server Stopped");
         this.stop=true;

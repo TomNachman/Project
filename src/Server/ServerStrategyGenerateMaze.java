@@ -12,7 +12,7 @@ import algorithms.mazeGenerators.MyMazeGenerator;
 public class ServerStrategyGenerateMaze implements IServerStrategy {
 
     @Override
-    public void serverStrategy(InputStream inFromClient, OutputStream outToClient) throws FileNotFoundException {
+    public void serverStrategy(InputStream inFromClient, OutputStream outToClient)  {
         try{
             ObjectInputStream DimInputStream = new ObjectInputStream(inFromClient);
             ObjectOutputStream MazeOutputStream = new ObjectOutputStream(outToClient);
