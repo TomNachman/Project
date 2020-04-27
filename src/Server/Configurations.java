@@ -11,6 +11,7 @@ public class Configurations {
 
             Properties prop = new Properties();
             // set the properties value
+
             prop.setProperty("NumOfThreads","10");
 
             // save properties to project root folder
