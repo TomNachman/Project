@@ -17,7 +17,7 @@ public class Client {
     public void communicateWithServer(){
         try{
             Socket myServer = new Socket(serverIP,serverPort);
-            System.out.println(String.format("connected to server! serverIP: %s, serverPort: %s)", serverIP, serverPort));
+            System.out.println(String.format("Client connected to server! serverIP: %s, serverPort: %s)", serverIP, serverPort));
             clientStrategy.clientStrategy(myServer.getInputStream(), myServer.getOutputStream());
             myServer.close();
         } catch (IOException e) {
