@@ -19,33 +19,36 @@ import java.util.Arrays;
  * Created by Aviadjo on 3/27/2017.
  */
 public class RunCommunicateWithServers {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         //--Initializing servers
         //Server mazeGeneratingServer = new Server(5400, 1000, new ServerStrategyGenerateMaze());
-        //Server solveSearchProblemServer = new Server(5401, 1000, new ServerStrategySolveSearchProblem());
-        Server stringReverserServer = new Server(5402, 1000, new ServerStrategyStringReverser());
+        Server solveSearchProblemServer = new Server(5401, 1000, new ServerStrategySolveSearchProblem());
+        //Server stringReverserServer = new Server(5402, 1000, new ServerStrategyStringReverser());
 
         //---Starting  servers
-        //solveSearchProblemServer.start();
+        solveSearchProblemServer.start();
         //mazeGeneratingServer.start();
-        stringReverserServer.start();
+        //stringReverserServer.start();
 
         //---Communicatin with servers
         //CommunicateWithServer_MazeGenerating();
         //CommunicateWithServer_SolveSearchProblem();
-        CommunicateWithServer_StringReverser();
+        //CommunicateWithServer_StringReverser();
 
-        /**Thread []t = new Thread[5];
+        Thread []t = new Thread[5];
         for (int i=0;i<5;i++){
-            t[i] = new Thread(()->CommunicateWithServer_StringReverser());
+            t[i] = new Thread(RunCommunicateWithServers::CommunicateWithServer_SolveSearchProblem);
             t[i].start();
-        }*/
+        }
 
+        for(int i=0;i<5;i++){
+            //t[i].join();
+        }
 
         //---Stopping all servers
         //mazeGeneratingServer.stop();
-        //solveSearchProblemServer.stop();
-        stringReverserServer.stop();
+        solveSearchProblemServer.stop();
+        //stringReverserServer.stop();
     }
 
     private static void CommunicateWithServer_MazeGenerating() {
@@ -90,7 +93,7 @@ public class RunCommunicateWithServers {
                         ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
                         toServer.flush();
                         MyMazeGenerator mg = new MyMazeGenerator();
-                        Maze maze = mg.generate(50, 50);
+                        Maze maze = mg.generate(5, 5);
                         maze.print();
                         toServer.writeObject(maze); //send maze to server
                         toServer.flush();

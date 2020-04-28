@@ -22,7 +22,7 @@ public class Server {
         this.listeningIntervalMS = listeningIntervalMS;
         this.serverStrategy = serverStrategy;
         this.stop = false;
-        Configurations.SetPropertys();
+        Configurations.SetProperties();
     }
     public void start()  {
         try{
@@ -37,6 +37,7 @@ public class Server {
                 while (!stop) {
                     try {
                         Socket ClientSocket = serverSocket.accept();
+                        System.out.println(Thread.currentThread().getName());
                         System.out.println(String.format("Client in: %s", ClientSocket));
                         executor.execute(new Thread(()->ClientHandler(ClientSocket))); //Client Threads
                     } catch (SocketTimeoutException e) {
@@ -73,7 +74,7 @@ public class Server {
         private static Properties prop;
 
         /** loading the configuration from config file into properties*/
-        public static void SetPropertys () {
+        public static void SetProperties () {
             try (InputStream input = new FileInputStream("resources/config.properties")) {
                 prop = new Properties();
                 // load a properties file
@@ -94,6 +95,29 @@ public class Server {
             }
             return 2;
         }
+
+        public static String getGenerateMethod(){
+            try{
+                String method = prop.getProperty("GenerateAlgorithm");
+                if (method.equals("MyMazeGenerator")||method.equals("SimpleMazeGenerator") || method.equals("EmptyMazeGenerator"))
+                    return method;
+            }catch (NumberFormatException e){
+                e.printStackTrace();
+            }
+            return "EmptyMazeGenerator";
+        }
+
+        public static String getSolutionMethod(){
+            try{
+                String method = prop.getProperty("SolvingAlgorithm");
+                if (method.equals("BestFirstSearch")||method.equals("BreadthFirstSearch") || method.equals("DepthFirstSearch"))
+                    return method;
+            }catch (NumberFormatException e){
+                e.printStackTrace();
+            }
+            return "BestFirstSearch";
+        }
+
 
     }
 }

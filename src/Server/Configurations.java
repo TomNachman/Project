@@ -11,8 +11,9 @@ public class Configurations {
 
             Properties prop = new Properties();
             // set the properties value
-
-            prop.setProperty("NumOfThreads","10");
+            prop.setProperty("NumOfThreads", "12");
+            prop.setProperty("GenerateAlgorithm", "MyMazeGenerator");
+            prop.setProperty("SolvingAlgorithm", "BestFirstSearch");
 
             // save properties to project root folder
             prop.store(output, null);
