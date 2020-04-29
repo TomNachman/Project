@@ -37,7 +37,6 @@ public class Server {
                 while (!stop) {
                     try {
                         Socket ClientSocket = serverSocket.accept();
-                        System.out.println(Thread.currentThread().getName());
                         System.out.println(String.format("Client in: %s", ClientSocket));
                         executor.execute(new Thread(()->ClientHandler(ClientSocket))); //Client Threads
                     } catch (SocketTimeoutException e) {
@@ -57,6 +56,7 @@ public class Server {
     public void ClientHandler(Socket ClientSocket){
         try {
             System.out.println(String.format("handling client : %s", ClientSocket.toString()));
+            System.out.println(Thread.currentThread().getName());
             serverStrategy.serverStrategy(ClientSocket.getInputStream(), ClientSocket.getOutputStream());
             ClientSocket.close();
 

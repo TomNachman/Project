@@ -11,7 +11,6 @@ import algorithms.search.Solution;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -32,18 +31,10 @@ public class RunCommunicateWithServers {
 
         //---Communicatin with servers
         //CommunicateWithServer_MazeGenerating();
-        //CommunicateWithServer_SolveSearchProblem();
+        CommunicateWithServer_SolveSearchProblem();
         //CommunicateWithServer_StringReverser();
 
-        Thread []t = new Thread[5];
-        for (int i=0;i<5;i++){
-            t[i] = new Thread(RunCommunicateWithServers::CommunicateWithServer_SolveSearchProblem);
-            t[i].start();
-        }
 
-        for(int i=0;i<5;i++){
-            //t[i].join();
-        }
 
         //---Stopping all servers
         //mazeGeneratingServer.stop();
@@ -66,7 +57,6 @@ public class RunCommunicateWithServers {
                         byte[] compressedMaze = (byte[]) fromServer.readObject(); //read generated maze (compressed with MyCompressor) from server
                         InputStream is = new MyDecompressorInputStream(new ByteArrayInputStream(compressedMaze));
                         byte[] decompressedMaze = new byte[36 /*CHANGE SIZE ACCORDING TO YOU MAZE SIZE*/]; //allocating byte[] for the decompressed maze -
-                        //---Check Read Function!!!!!!!!!!!! ---
                         is.read(decompressedMaze); //Fill decompressedMaze with bytes
                         byte [] numberOfRows = Arrays.copyOfRange(decompressedMaze, 0 ,4 );
                         Maze maze = new Maze(decompressedMaze);
