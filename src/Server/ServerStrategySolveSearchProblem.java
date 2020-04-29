@@ -5,11 +5,12 @@ import algorithms.mazeGenerators.Maze;
 import algorithms.search.*;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ServerStrategySolveSearchProblem implements IServerStrategy {
     // hashmap - holds the maze as key and the solution path in tmpdir as value
-    private static ConcurrentHashMap<Maze, String> hashMap = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<String, String> hashMap = new ConcurrentHashMap<>();
     private String tempDirectoryPath = System.getProperty("java.io.tmpdir");
     private int counter;
 
@@ -23,21 +24,20 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
                 Class<?> SA = Class.forName("algorithms.search." + Server.Configurations.getSolutionMethod());
                 ISearchingAlgorithm searchingAlgorithm = (ISearchingAlgorithm) SA.newInstance();
                 Maze maze = (Maze)MazeInputStream.readObject();
-                if(hashMap.containsKey(maze)){
-                    Solution s = readSolutionFromFile(hashMap.get(maze));
+                if(hashMap.containsKey(Arrays.toString(maze.toByteArray()))){
+                    Solution s = readSolutionFromFile(hashMap.get(Arrays.toString(maze.toByteArray())));
                     SolutionOutputStream.writeObject(s);
-                    SolutionOutputStream.flush();
                 }
 
                 else{
                     SearchableMaze searchableMaze = new SearchableMaze(maze);
                     Solution s = searchingAlgorithm.solve(searchableMaze);
-                    hashMap.put(maze, tempDirectoryPath + "/Solution"+ counter);
+                    hashMap.put(Arrays.toString(maze.toByteArray()), tempDirectoryPath + "/Solution"+ counter);
                     writeSolutionToFile(s);
-                    Solution newS = readSolutionFromFile(hashMap.get(maze));
+                    Solution newS = readSolutionFromFile(hashMap.get(Arrays.toString(maze.toByteArray())));
                     SolutionOutputStream.writeObject(newS);
-                    SolutionOutputStream.flush();
                 }
+                SolutionOutputStream.flush();
 
             } catch (ClassNotFoundException e){
                 e.printStackTrace();

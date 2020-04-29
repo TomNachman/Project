@@ -96,6 +96,7 @@ public class Server {
             return 2;
         }
 
+        /** Returns the Maze Generation Method in the configuration file */
         public static String getGenerateMethod(){
             try{
                 String method = prop.getProperty("GenerateAlgorithm");
@@ -107,6 +108,7 @@ public class Server {
             return "EmptyMazeGenerator";
         }
 
+        /** Returns the solving algorithm in the configuration file */
         public static String getSolutionMethod(){
             try{
                 String method = prop.getProperty("SolvingAlgorithm");

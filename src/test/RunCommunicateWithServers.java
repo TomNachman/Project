@@ -3,8 +3,10 @@ package test;
 import IO.MyDecompressorInputStream;
 import Server.*;
 import Client.*;
+import algorithms.mazeGenerators.EmptyMazeGenerator;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
+import algorithms.mazeGenerators.Position;
 import algorithms.search.AState;
 import algorithms.search.Solution;
 
@@ -31,6 +33,7 @@ public class RunCommunicateWithServers {
 
         //---Communicatin with servers
         //CommunicateWithServer_MazeGenerating();
+        CommunicateWithServer_SolveSearchProblem();
         CommunicateWithServer_SolveSearchProblem();
         //CommunicateWithServer_StringReverser();
 
