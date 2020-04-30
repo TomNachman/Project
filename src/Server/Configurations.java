@@ -16,10 +16,8 @@ public class Configurations {
             prop.setProperty("SolvingAlgorithm", "BestFirstSearch");
 
             // save properties to project root folder
-            prop.store(output, null);
-
-            System.out.println(prop);
-
+            prop.store(output,"Asi Shtuk kvar");
+            
         } catch (IOException io) {
             io.printStackTrace();
         }
