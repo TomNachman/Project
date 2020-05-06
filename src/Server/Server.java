@@ -26,7 +26,6 @@ public class Server {
     }
     public void start()  {
         try{
-            //TODO:check if port is availbale?
             ServerSocket serverSocket = new ServerSocket(Port);
             serverSocket.setSoTimeout(listeningIntervalMS);
             System.out.println((String.format("Server starter at: %s", serverSocket)));
@@ -47,7 +46,7 @@ public class Server {
                 }
                 executor.shutdown();
 
-            });// im guessing the num of threds
+            });
 
         } catch (IOException e) {
             System.out.println("IOException"+ e);
@@ -79,7 +78,6 @@ public class Server {
                 prop = new Properties();
                 // load a properties file
                 prop.load(input);
-                System.out.println(String.format("NumOfThreads is: %s",prop.getProperty("NumOfThreads")));
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

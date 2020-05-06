@@ -17,7 +17,7 @@ public class Configurations {
 
             // save properties to project root folder
             prop.store(output,"Asi Shtuk kvar");
-            
+
         } catch (IOException io) {
             io.printStackTrace();
         }

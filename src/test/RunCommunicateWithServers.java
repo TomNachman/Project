@@ -35,6 +35,7 @@ public class RunCommunicateWithServers {
         //CommunicateWithServer_MazeGenerating();
         CommunicateWithServer_SolveSearchProblem();
         CommunicateWithServer_SolveSearchProblem();
+        CommunicateWithServer_SolveSearchProblem();
         //CommunicateWithServer_StringReverser();
 
 

@@ -15,7 +15,8 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
     private int counter;
 
     @Override
-    public void serverStrategy(InputStream inFromClient, OutputStream outToClient) {
+    //synchronized because the counter variable
+    public synchronized void serverStrategy(InputStream inFromClient, OutputStream outToClient) {
         try {
             ObjectInputStream MazeInputStream = new ObjectInputStream(inFromClient);
             ObjectOutputStream SolutionOutputStream = new ObjectOutputStream(outToClient);
